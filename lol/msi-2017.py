@@ -3,7 +3,7 @@ import itertools
 import xml.dom
 import yaml
 
-msi = yaml.safe_load(open('msi-2018.yaml'))
+msi = yaml.safe_load(open('msi-2017.yaml'))
 
 impl = xml.dom.getDOMImplementation()
 doctype = impl.createDocumentType("html", None, None)
@@ -288,6 +288,24 @@ def create_playin_round2_section(doc, stage):
 
 body.appendChild(create_playin_round2_section(doc, msi['stages'][1]))
 
+def create_playin_round3_section(doc, stage):
+    section = doc.createElement("section")
+
+    h2 = doc.createElement("h2")
+    h2.appendChild(doc.createTextNode(stage['name']))
+    section.appendChild(h2)
+
+    for match in stage['matches']:
+        section.appendChild(create_matchbox(doc, match))
+
+        games_table = create_games_table(doc, match['games'])
+        details = wrap_details(doc, games_table, "Games")
+        section.appendChild(details)
+
+    return section
+
+body.appendChild(create_playin_round3_section(doc, msi['stages'][2]))
+
 def create_group_stage_section(doc, stage):
     section = doc.createElement("section")
 
@@ -312,7 +330,7 @@ def create_group_stage_section(doc, stage):
 
     return section
 
-body.appendChild(create_group_stage_section(doc, msi['stages'][2]))
+body.appendChild(create_group_stage_section(doc, msi['stages'][3]))
 
 def create_knockout_stage_section(doc, stage):
     section = doc.createElement("section")
@@ -341,6 +359,6 @@ def create_knockout_stage_section(doc, stage):
 
     return section
 
-body.appendChild(create_knockout_stage_section(doc, msi['stages'][3]))
+body.appendChild(create_knockout_stage_section(doc, msi['stages'][4]))
 
 print(serialize(doc, tree="dom"))
