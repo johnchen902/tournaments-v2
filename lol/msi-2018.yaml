@@ -19,6 +19,7 @@ stages:
 - name: Play-In Round 1
   groups:
   - name: Group A
+    winners: [*gmb]
     placements:
     - {place: 1, team: *gmb, wins: 5, losses: 1}
     - {place: 2, team: *r7,  wins: 3, losses: 3}
@@ -38,6 +39,7 @@ stages:
     - {label: Day 3, blue: *gmb, red: *r7,  winner: *gmb}
     - {label: Day 3, blue: *asc, red: *klg, winner: *asc}
   - name: Group B
+    winners: [*sup]
     placements:
     - {place: 1, team: *sup, wins: 5, losses: 1}
     - {place: 2, team: *kbm, wins: 4, losses: 2}
@@ -78,6 +80,7 @@ stages:
     - {blue: *gmb, red: *fw,  winner: *fw}
     - {blue: *fw,  red: *gmb, winner: *fw}
 - name: Group Stage
+  winners: [*rng, *fw, *kz, *fnc]
   placements:
   - {place: 1, team: *rng, wins: 7, losses: 3}
   - {place: 2, team: *fw,  wins: 7, losses: 3}

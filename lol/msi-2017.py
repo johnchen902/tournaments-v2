@@ -1,133 +1,80 @@
 from html5lib.serializer import serialize
 import itertools
-import xml.dom
+import sys
+import xml.etree.ElementTree as et
 import yaml
 
 msi = yaml.safe_load(open('msi-2017.yaml'))
 
-impl = xml.dom.getDOMImplementation()
-doctype = impl.createDocumentType("html", None, None)
-doc = impl.createDocument(None, "html", doctype)
-html = doc.documentElement
-html.setAttribute("lang", "en")
-
-head = doc.createElement("head")
-html.appendChild(head)
-
-title = doc.createElement("title")
-title.appendChild(doc.createTextNode(msi['abbr']))
-head.appendChild(title)
-
-charset = doc.createElement("meta")
-charset.setAttribute("charset", "utf-8")
-head.appendChild(charset)
-
-viewport = doc.createElement("meta")
-viewport.setAttribute("name", "viewport")
-viewport.setAttribute("content", "width=device-width, initial-scale=1")
-head.appendChild(viewport)
-
-stylesheet = doc.createElement("link")
-stylesheet.setAttribute("rel", "stylesheet")
-stylesheet.setAttribute("href", "style.css")
-head.appendChild(stylesheet)
-
-style = doc.createElement("style")
-style.appendChild(doc.createTextNode("""
+html = et.Element("html", lang="en")
+head = et.SubElement(html, "head")
+et.SubElement(head, "meta", charset="utf-8")
+et.SubElement(head, "title").text = msi['abbr']
+et.SubElement(head, "meta", name="viewport",
+              content="width=device-width, initial-scale=1")
+et.SubElement(head, "link", rel="stylesheet", href="style.css")
+et.SubElement(head, "style").text = """
 #participants td:nth-child(3) {
     text-align: left;
     padding-left: 1em;
     padding-right: 1em;
 }
-"""))
-head.appendChild(style)
+"""
 
-body = doc.createElement("body")
-html.appendChild(body)
+body = et.SubElement(html, "body")
+et.SubElement(body, "h1").text = msi['name']
 
-h1 = doc.createElement("h1")
-h1.appendChild(doc.createTextNode(msi['name']))
-body.appendChild(h1)
-
-def wrap_details(doc, element, summary=None):
-    details = doc.createElement("details")
+def wrap_details(*elements, summary=None):
+    details = et.Element("details")
     if summary is not None:
-        if not isinstance(summary, xml.dom.Node):
-            summary = doc.createTextNode(summary)
-        outer_summary = doc.createElement("summary")
-        outer_summary.appendChild(summary)
-        details.appendChild(outer_summary)
-    details.appendChild(element)
+        et.SubElement(details, "summary").text = summary
+    details.extend(elements)
     return details
 
-def create_teams_section(doc, msi):
-    teams = msi['teams']
-
-    section = doc.createElement("div")
-
-    table = doc.createElement("table")
-    table.setAttribute("id", "participants")
+def create_teams_table(teams, labels={}):
+    table = et.Element("table", id="participants")
 
     for i, team in enumerate(teams):
-        if i in [0, 4, 6, 10]:
-            tr = doc.createElement("tr")
-            th = doc.createElement("th")
-            th.setAttribute("colspan", "3")
-            label = {
-                0: "Main Event Seeds",
-                4: "Play-In Round 2 Seeds",
-                6: "Play-In Round 1 Seeds (Pool 1)",
-                10: "Play-In Round 1 Seeds (Pool 2)",
-            }[i]
-            th.appendChild(doc.createTextNode(label))
-            tr.appendChild(th)
-            table.appendChild(tr)
+        if i in labels:
+            tr = et.SubElement(table, "tr")
+            et.SubElement(tr, "th", colspan="3").text = labels[i]
+
         if i == 0:
-            tr = doc.createElement("tr")
+            tr = et.SubElement(table, "tr")
             for text in ["Region", "Team", "Full Team Name"]:
-                th = doc.createElement("th")
-                th.appendChild(doc.createTextNode(text))
-                tr.appendChild(th)
-            table.appendChild(tr)
-        tr = doc.createElement("tr")
+                et.SubElement(tr, "th").text = text
+
+        tr = et.SubElement(table, "tr")
         for text in [team["region"], team["abbr"], team["name"]]:
-            td = doc.createElement("td")
-            td.appendChild(doc.createTextNode(text))
-            tr.appendChild(td)
-        table.appendChild(tr)
+            et.SubElement(tr, "td").text = text
 
-    details = wrap_details(doc, table, "Participants")
-    section.appendChild(details)
-    return section
-
-body.appendChild(create_teams_section(doc, msi))
-
-def create_group_table(doc, placements, winning_place):
-    table = doc.createElement("table")
-    table.setAttribute("class", "grouptable")
-
-    tr = doc.createElement("tr")
-    for text in ["Place", "Team", "W", "L"]:
-        th = doc.createElement("th")
-        th.appendChild(doc.createTextNode(text))
-        tr.appendChild(th)
-    table.appendChild(tr)
-
-    for row in placements:
-        tr = doc.createElement("tr")
-        if row['place'] <= winning_place:
-            tr.setAttribute("class", "won")
-        else:
-            tr.setAttribute("class", "lost")
-        for text in [row['place'], row['team']['abbr'],
-                     row['wins'], row['losses']]:
-            td = doc.createElement("td")
-            td.appendChild(doc.createTextNode(str(text)))
-            tr.appendChild(td)
-        table.appendChild(tr)
     return table
 
-def compute_crosstable(teams, games):
+teams_table = create_teams_table(msi['teams'], labels = {
+    0: "Main Event Seeds",
+    3: "Play-In Round 2 Seeds",
+    5: "Play-In Round 1 Seeds (Pool 1)",
+    9: "Play-In Round 1 Seeds (Pool 2)",
+})
+teams_div = et.SubElement(body, "div")
+teams_div.append(wrap_details(teams_table, summary="Participants"))
+
+def create_group_table(placements, winners):
+    table = et.Element("table", {"class": "grouptable"})
+
+    tr = et.SubElement(table, "tr")
+    for text in ["Place", "Team", "W", "L"]:
+        et.SubElement(tr, "th").text = text
+
+    for row in placements:
+        tr = et.SubElement(table, "tr")
+        for text in [row['place'], row['team']['abbr'],
+                     row['wins'], row['losses']]:
+            et.SubElement(tr, "td").text = str(text)
+        tr[1].set("class", "won" if row['team'] in winners else "lost")
+    return table
+
+def compute_crosstable_from_games(teams, games):
     crosstable = [[{'wins': 0, 'losses': 0} for _ in teams] for _ in teams]
     for game in games:
         blue, red = game['blue'], game['red']
@@ -141,224 +88,166 @@ def compute_crosstable(teams, games):
             crosstable[i][j]['losses'] += 1
     return crosstable
 
-def create_crosstable(doc, teams, crosstable):
-    table = doc.createElement("table")
-    table.setAttribute("class", "crosstable")
-    tr = doc.createElement("tr")
+def create_crosstable(teams, crosstable):
+    table = et.Element("table", {"class": "crosstable"})
+    tr = et.SubElement(table, "tr")
     for text in ["Team"] + [team['abbr'] for team in teams]:
-        th = doc.createElement("th")
-        th.appendChild(doc.createTextNode(text))
-        tr.appendChild(th)
-    table.appendChild(tr)
+        et.SubElement(tr, "th").text = text
 
     for i, team in enumerate(teams):
-        tr = doc.createElement("tr")
-        td = doc.createElement("td")
-        td.appendChild(doc.createTextNode(team['abbr']))
-        tr.appendChild(td)
+        tr = et.SubElement(table, "tr")
+        et.SubElement(tr, "td").text = team['abbr']
+
         for j, wl in enumerate(crosstable[i]):
             if i == j:
-                tr.appendChild(doc.createElement("td"))
+                et.SubElement(tr, "td")
                 continue
 
             text = '%(wins)d\u2013%(losses)d' % wl
             clazz = ('won' if wl['wins'] > wl['losses'] else
                      'lost' if wl['losses'] > wl['wins'] else
                      'tied')
-            td = doc.createElement("td")
-            td.setAttribute("class", clazz)
-            td.appendChild(doc.createTextNode(text))
-            tr.appendChild(td)
-        table.appendChild(tr)
+            et.SubElement(tr, "td", {"class": clazz}).text = text
     return table
 
-def create_matchbox_tr(doc, abbr1, won1, score1, abbr2, won2, score2):
-    tr = doc.createElement("tr")
-
-    td1n = doc.createElement("td")
-    td1n.appendChild(doc.createTextNode(abbr1))
-    td1s = doc.createElement("td")
-    td1s.appendChild(doc.createTextNode(score1))
-
-    td2s = doc.createElement("td")
-    td2s.appendChild(doc.createTextNode(score2))
-    td2n = doc.createElement("td")
-    td2n.appendChild(doc.createTextNode(abbr2))
-
+def create_matchbox_tr(abbr1, won1, score1, abbr2, won2, score2):
+    tr = et.Element("tr")
+    et.SubElement(tr, "td").text = abbr1
+    et.SubElement(tr, "td").text = score1
+    et.SubElement(tr, "td").text = score2
+    et.SubElement(tr, "td").text = abbr2
     if won1 or won2:
-        td1n.setAttribute("class", "won" if won1 else "lost")
-        td2n.setAttribute("class", "won" if won2 else "lost")
-
-    tr.appendChild(td1n)
-    tr.appendChild(td1s)
-    tr.appendChild(td2s)
-    tr.appendChild(td2n)
+        tr[0].set("class", "won" if won1 else "lost")
+        tr[3].set("class", "won" if won2 else "lost")
     return tr
 
-def create_games_table(doc, games):
-    table = doc.createElement("table")
-    table.setAttribute("class", "matchbox")
+def create_games_table(games):
+    table = et.Element("table", {"class": "matchbox"})
 
     lastlabel = None
     for game in games:
         label = game.get('label')
         if label is not None and (lastlabel is None or lastlabel != label):
-            tr = doc.createElement("tr")
-            th = doc.createElement("th")
-            th.setAttribute("colspan", "4")
-            th.appendChild(doc.createTextNode(label))
-            tr.appendChild(th)
-            table.appendChild(tr)
+            tr = et.SubElement(table, "tr")
+            et.SubElement(tr, "th", colspan="4").text = label
             lastlabel = label
         blue, red, winner = game['blue'], game['red'], game['winner']
-        tr = create_matchbox_tr(doc,
+        tr = create_matchbox_tr(
                 blue['abbr'], blue == winner, str(int(blue == winner)),
                 red ['abbr'], red  == winner, str(int(red  == winner)))
-        table.appendChild(tr)
+        table.append(tr)
     return table
 
-def create_playin_round1_section(doc, stage):
-    section = doc.createElement("section")
-
-    h2 = doc.createElement("h2")
-    h2.appendChild(doc.createTextNode(stage['name']))
-    section.appendChild(h2)
-
-    groupsdiv = doc.createElement("div")
-    section.appendChild(groupsdiv)
-    groupsdiv.setAttribute("class", "groups collapse-h3")
+def create_playin_round1_section(stage):
+    section = et.Element("section")
+    et.SubElement(section, "h2").text = stage['name']
+    groupsdiv = et.SubElement(section, "div", {"class": "groups collapse-h3"})
 
     for group in stage['groups']:
-        subsection = doc.createElement("section")
-        groupsdiv.appendChild(subsection)
+        subsection = et.SubElement(groupsdiv, "section")
+        et.SubElement(subsection, "h3").text = group['name']
 
-        h3 = doc.createElement("h3")
-        h3.appendChild(doc.createTextNode(group['name']))
-        subsection.appendChild(h3)
-
-        subsection.appendChild(create_group_table(doc, group["placements"], 1))
+        subsection.append(create_group_table(group["placements"],
+                                             group["winners"]))
 
         teams = [row['team'] for row in group['placements']]
-        crosstable = compute_crosstable(teams, group['games'])
-        outer_crosstable = create_crosstable(doc, teams, crosstable)
-        details = wrap_details(doc, outer_crosstable, "Crosstable")
-        subsection.appendChild(details)
+        crosstable = compute_crosstable_from_games(teams, group['games'])
+        crosstable = create_crosstable(teams, crosstable)
+        details = wrap_details(crosstable, summary="Crosstable")
+        subsection.append(details)
 
-        games_table = create_games_table(doc, group['games'])
-        details = wrap_details(doc, games_table, "Games")
-        subsection.appendChild(details)
+        games_table = create_games_table(group['games'])
+        details = wrap_details(games_table, summary="Games")
+        subsection.append(details)
 
     return section
 
-body.appendChild(create_playin_round1_section(doc, msi['stages'][0]))
+body.append(create_playin_round1_section(msi['stages'][0]))
 
-def create_matchbox(doc, match):
-    table = doc.createElement("table")
-    table.setAttribute("class", "matchbox")
-
+def create_matchbox(match):
+    table = et.Element("table", {"class": "matchbox"})
     team1, team2, winner = match['team1'], match['team2'], match['winner']
-    tr = create_matchbox_tr(doc,
+    table.append(create_matchbox_tr(
             team1['abbr'], team1 == winner, str(match['score1']),
-            team2['abbr'], team2 == winner, str(match['score2']))
-    table.appendChild(tr)
+            team2['abbr'], team2 == winner, str(match['score2'])))
     return table
 
-def create_playin_round2_section(doc, stage):
-    section = doc.createElement("section")
+def create_playin_round2_section(stage):
+    section = et.Element("section")
+    et.SubElement(section, "h2").text = stage['name']
 
-    h2 = doc.createElement("h2")
-    h2.appendChild(doc.createTextNode(stage['name']))
-    section.appendChild(h2)
-
-    groupsdiv = doc.createElement("div")
-    section.appendChild(groupsdiv)
-    groupsdiv.setAttribute("class", "groups")
+    groupsdiv = et.SubElement(section, "div", {"class": "groups"})
 
     for match in stage['matches']:
-        subsection = doc.createElement("div")
-        groupsdiv.appendChild(subsection)
+        subsection = et.SubElement(groupsdiv, "div")
+        subsection.append(create_matchbox(match))
 
-        subsection.appendChild(create_matchbox(doc, match))
-
-        games_table = create_games_table(doc, match['games'])
-        details = wrap_details(doc, games_table, "Games")
-        subsection.appendChild(details)
+        games_table = create_games_table(match['games'])
+        details = wrap_details(games_table, summary="Games")
+        subsection.append(details)
 
     return section
 
-body.appendChild(create_playin_round2_section(doc, msi['stages'][1]))
+body.append(create_playin_round2_section(msi['stages'][1]))
 
-def create_playin_round3_section(doc, stage):
-    section = doc.createElement("section")
-
-    h2 = doc.createElement("h2")
-    h2.appendChild(doc.createTextNode(stage['name']))
-    section.appendChild(h2)
+def create_playin_round3_section(stage):
+    section = et.Element("section")
+    et.SubElement(section, "h2").text = stage['name']
 
     for match in stage['matches']:
-        section.appendChild(create_matchbox(doc, match))
+        section.append(create_matchbox(match))
 
-        games_table = create_games_table(doc, match['games'])
-        details = wrap_details(doc, games_table, "Games")
-        section.appendChild(details)
+        games_table = create_games_table(match['games'])
+        details = wrap_details(games_table, summary="Games")
+        section.append(details)
 
     return section
 
-body.appendChild(create_playin_round3_section(doc, msi['stages'][2]))
+body.append(create_playin_round3_section(msi['stages'][2]))
 
-def create_group_stage_section(doc, stage):
-    section = doc.createElement("section")
+def create_group_stage_section(stage):
+    section = et.Element("section")
+    et.SubElement(section, "h2").text = stage['name']
 
-    h2 = doc.createElement("h2")
-    h2.appendChild(doc.createTextNode(stage['name']))
-    section.appendChild(h2)
-
-    section.appendChild(create_group_table(doc, stage["placements"], 4))
+    section.append(create_group_table(stage['placements'], stage['winners']))
 
     teams = [row['team'] for row in stage['placements']]
-    crosstable = compute_crosstable(teams, stage['games'])
-    outer_crosstable = create_crosstable(doc, teams, crosstable)
-    details = wrap_details(doc, outer_crosstable, "Crosstable")
-    section.appendChild(details)
+    crosstable = compute_crosstable_from_games(teams, stage['games'])
+    crosstable = create_crosstable(teams, crosstable)
+    details = wrap_details(crosstable, summary="Crosstable")
+    section.append(details)
 
-    groupsdiv = doc.createElement("div")
-    groupsdiv.setAttribute("class", "groups")
+    groupsdiv = et.Element("div", {"class": "groups"})
     for _, games in itertools.groupby(stage['games'], lambda g: g['label']):
-        groupsdiv.appendChild(create_games_table(doc, games))
-    details = wrap_details(doc, groupsdiv, "Games")
-    section.appendChild(details)
+        groupsdiv.append(create_games_table(games))
+    details = wrap_details(groupsdiv, summary="Games")
+    section.append(details)
 
     return section
 
-body.appendChild(create_group_stage_section(doc, msi['stages'][3]))
+body.append(create_group_stage_section(msi['stages'][3]))
 
-def create_knockout_stage_section(doc, stage):
-    section = doc.createElement("section")
+def create_knockout_stage_section(stage):
+    section = et.Element("section")
+    et.SubElement(section, "h2").text = stage['name']
 
-    h2 = doc.createElement("h2")
-    h2.appendChild(doc.createTextNode(stage['name']))
-    section.appendChild(h2)
-
-    groupsdiv = doc.createElement("div")
-    section.appendChild(groupsdiv)
-    groupsdiv.setAttribute("class", "groups collapse-h3")
+    groupsdiv = et.SubElement(section, "div", {"class": "groups collapse-h3"})
 
     for match in stage['matches']:
-        subsection = doc.createElement("div")
-        groupsdiv.appendChild(subsection)
+        subsection = et.SubElement(groupsdiv, "div")
+        et.SubElement(subsection, "h3").text = match['label']
 
-        h3 = doc.createElement("h3")
-        h3.appendChild(doc.createTextNode(match['label']))
-        subsection.appendChild(h3)
+        subsection.append(create_matchbox(match))
 
-        subsection.appendChild(create_matchbox(doc, match))
-
-        games_table = create_games_table(doc, match['games'])
-        details = wrap_details(doc, games_table, "Games")
-        subsection.appendChild(details)
+        games_table = create_games_table(match['games'])
+        details = wrap_details(games_table, summary="Games")
+        subsection.append(details)
 
     return section
 
-body.appendChild(create_knockout_stage_section(doc, msi['stages'][4]))
+body.append(create_knockout_stage_section(msi['stages'][4]))
 
-print(serialize(doc, tree="dom"))
+out = sys.stdout.buffer
+out.write(b"<!DOCTYPE html>\n")
+out.write(serialize(html, encoding='ascii', inject_meta_charset=False))
+out.write(b"\n")
