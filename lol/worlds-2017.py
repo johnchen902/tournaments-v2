@@ -6,7 +6,7 @@ import yaml
 
 import tournament
 
-data = yaml.safe_load(open('world-2017.yaml'))
+data = yaml.safe_load(open('worlds-2017.yaml'))
 
 html = et.Element("html", lang="en")
 head = et.SubElement(html, "head")
