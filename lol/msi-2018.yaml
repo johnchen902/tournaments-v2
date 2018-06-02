@@ -89,7 +89,7 @@ stages:
   - {place: 5, team: *tl,  wins: 4, losses: 6}
   - {place: 6, team: *evs, wins: 2, losses: 8}
   games:
-  - {label: Day 1, blue: *fnc, red: *rng, winner: *fnc}
+  - {label: Day 1, blue: *fnc, red: *rng, winner: *rng}
   - {label: Day 1, blue: *evs, red: *fw,  winner: *fw}
   - {label: Day 1, blue: *kz,  red: *tl,  winner: *kz}
   - {label: Day 1, blue: *fw,  red: *fnc, winner: *fw}

@@ -43,39 +43,37 @@ def create_group_table(placements, winners):
     return table
 
 def compute_crosstable_from_games(teams, games):
-    crosstable = [[{'wins': 0, 'losses': 0} for _ in teams] for _ in teams]
+    crosstable = [[0] * len(teams) for _ in teams]
     for game in games:
         blue, red = game['blue'], game['red']
         i = teams.index(blue)
         j = teams.index(red)
         if blue == game['winner']:
-            crosstable[i][j]['wins'] += 1
-            crosstable[j][i]['losses'] += 1
+            crosstable[i][j] += 1
         elif red == game['winner']:
-            crosstable[j][i]['wins'] += 1
-            crosstable[i][j]['losses'] += 1
+            crosstable[j][i] += 1
     return crosstable
 
 def create_crosstable(teams, crosstable):
     table = et.Element("table", {"class": "crosstable"})
     tr = et.SubElement(table, "tr")
-    for text in ["Team"] + [team['abbr'] for team in teams]:
+    for text in ["Team"] + [team['abbr'][0] for team in teams]:
         et.SubElement(tr, "th").text = text
 
     for i, team in enumerate(teams):
         tr = et.SubElement(table, "tr")
         et.SubElement(tr, "td").text = team['abbr']
 
-        for j, wl in enumerate(crosstable[i]):
+        for j, team in enumerate(teams):
             if i == j:
                 et.SubElement(tr, "td")
                 continue
 
-            text = '%(wins)d\u2013%(losses)d' % wl
-            clazz = ('won' if wl['wins'] > wl['losses'] else
-                     'lost' if wl['losses'] > wl['wins'] else
-                     'tied')
-            et.SubElement(tr, "td", {"class": clazz}).text = text
+            wins = crosstable[i][j]
+            losses = crosstable[j][i]
+            clazz = ('won' if wins > losses else
+                     'lost' if wins < losses else 'tied')
+            et.SubElement(tr, "td", {"class": clazz}).text = str(wins)
     return table
 
 def create_matchbox_tr(abbr1, won1, score1, abbr2, won2, score2):

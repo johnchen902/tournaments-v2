@@ -56,12 +56,11 @@ img {
 .crosstable td:nth-child(1) {
     /* Team */
     min-width: 5ch;
-    padding-left: 2ch;
-    padding-right: 2ch;
+    padding-left: 1ch;
+    padding-right: 1ch;
 }
 .crosstable td:nth-child(n+2) {
-    /* Wins -- Losses */
-    min-width: 3ch;
+    min-width: 1ch;
     padding-left: 1ch;
     padding-right: 1ch;
 }
