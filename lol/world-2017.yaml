@@ -1,0 +1,293 @@
+abbr: Worlds 2017
+name: League of Legends 2017 World Championship
+teams:
+# Main Event Pool 1
+- &lz  {region: KR,  abbr: LZ,  name: Longzhu Gaming}
+- &edg {region: CN,  abbr: EDG, name: Edward Gaming}
+- &g2  {region: EU,  abbr: G2,  name: G2 Esports}
+- &fw  {region: TW,  abbr: FW,  name: Flash Wolves}
+# Main Event Pool 2
+- &skt {region: KR,  abbr: SKT, name: SK telecom T1}
+- &ssg {region: KR,  abbr: SSG, name: Samsung Galaxy}
+- &rng {region: CN,  abbr: RNG, name: Royal Never Give Up}
+- &tsm {region: NA,  abbr: TSM, name: Team SoloMid}
+- &imt {region: NA,  abbr: IMT, name: Immortals}
+- &msf {region: EU,  abbr: MSF, name: Misfits Gaming}
+- &ahq {region: TW,  abbr: AHQ, name: ahq e-Sports Club}
+- &gam {region: SEA, abbr: GAM, name: GIGABYTE Marines}
+# Play-In Pool 1
+- &we  {region: CN,  abbr: WE,  name: Team WE}
+- &c9  {region: NA,  abbr: C9,  name: Cloud 9}
+- &fnc {region: EU,  abbr: FNC, name: Fnatic}
+- &hka {region: TW,  abbr: HKA, name: Hong Kong Attitude}
+# Play-In Pool 2
+- &yg  {region: SEA, abbr: YG,  name: Young Generation}
+- &one {region: BR,  abbr: ONE, name: Team oNe Esports}
+- &gmb {region: CIS, abbr: GMB, name: Gambit Esports}
+- &fb  {region: TR,  abbr: FB,  name: 1907 Fenerbahçe Espor}
+# Play-In Pool 3
+- &rpg {region: JP,  abbr: RPG, name: Rampage}
+- &lyn {region: LAN, abbr: LYN, name: Lyon Gaming}
+- &klg {region: LAS, abbr: KLG, name: Kaos Latin Gaming}
+- &dw  {region: OCE, abbr: DW,  name: Dire Wolves}
+stages:
+- name: Play-In Round 1
+  groups:
+  - name: Group A
+    winners: [*we, *lyn]
+    placements:
+    - {place: 1, team: *we,  wins: 4, losses: 0}
+    - {place: 2, team: *lyn, wins: 2, losses: 2}
+    - {place: 3, team: *gmb, wins: 0, losses: 4}
+    games:
+    - {label: Day 1, blue: *we,  red: *lyn, winner: *we}
+    - {label: Day 1, blue: *gmb, red: *lyn, winner: *lyn}
+    - {label: Day 1, blue: *gmb, red: *we,  winner: *we}
+    - {label: Day 2, blue: *lyn, red: *we,  winner: *we}
+    - {label: Day 2, blue: *lyn, red: *gmb, winner: *lyn}
+    - {label: Day 2, blue: *we,  red: *gmb, winner: *we}
+  - name: Group B
+    winners: [*c9, *one]
+    placements:
+    - {place: 1, team: *c9,  wins: 4, losses: 0}
+    - {place: 2, team: *one, wins: 1, losses: 3}
+    - {place: 3, team: *dw,  wins: 1, losses: 3}
+    games:
+    - {label: Day 1, blue: *c9,  red: *one, winner: *c9}
+    - {label: Day 1, blue: *dw,  red: *c9,  winner: *c9}
+    - {label: Day 1, blue: *dw,  red: *one, winner: *dw}
+    - {label: Day 2, blue: *one, red: *c9,  winner: *c9}
+    - {label: Day 2, blue: *c9,  red: *dw,  winner: *c9}
+    - {label: Day 2, blue: *one, red: *dw,  winner: *one}
+    - {label: Tiebreaker, blue: *dw, red: *one,  winner: *one}
+  - name: Group C
+    winners: [*fnc, *yg]
+    placements:
+    - {place: 1, team: *fnc, wins: 3, losses: 1}
+    - {place: 2, team: *yg,  wins: 2, losses: 2}
+    - {place: 3, team: *klg, wins: 1, losses: 3}
+    games:
+    - {label: Day 3, blue: *yg,  red: *klg, winner: *klg}
+    - {label: Day 3, blue: *fnc, red: *klg, winner: *fnc}
+    - {label: Day 3, blue: *yg,  red: *fnc, winner: *fnc}
+    - {label: Day 4, blue: *klg, red: *yg,  winner: *yg}
+    - {label: Day 4, blue: *klg, red: *fnc, winner: *fnc}
+    - {label: Day 4, blue: *fnc, red: *yg,  winner: *yg}
+  - name: Group D
+    winners: [*fb, *hka]
+    placements:
+    - {place: 1, team: *fb,  wins: 3, losses: 3}
+    - {place: 2, team: *hka, wins: 3, losses: 3}
+    - {place: 3, team: *rpg, wins: 0, losses: 4}
+    games:
+    - {label: Day 3, blue: *rpg, red: *hka, winner: *hka}
+    - {label: Day 3, blue: *hka, red: *fb,  winner: *fb}
+    - {label: Day 3, blue: *rpg, red: *fb,  winner: *fb}
+    - {label: Day 4, blue: *hka, red: *rpg, winner: *hka}
+    - {label: Day 4, blue: *fb,  red: *rpg, winner: *fb}
+    - {label: Day 4, blue: *fb,  red: *hka, winner: *hka}
+    - {label: Tiebreaker, blue: *hka, red: *fb,  winner: *fb}
+- name: Play-In Round 2
+  matches:
+  - team1: *c9
+    team2: *lyn
+    score1: 3
+    score2: 0
+    winner: *c9
+    games:
+    - {blue: *c9,  red: *lyn, winner: *c9}
+    - {blue: *lyn, red: *c9,  winner: *c9}
+    - {blue: *c9,  red: *lyn, winner: *c9}
+  - team1: *fnc
+    team2: *hka
+    score1: 3
+    score2: 0
+    winner: *fnc
+    games:
+    - {blue: *fnc, red: *hka, winner: *fnc}
+    - {blue: *fnc, red: *hka, winner: *fnc}
+    - {blue: *fnc, red: *hka, winner: *fnc}
+  - team1: *fb
+    team2: *one
+    score1: 3
+    score2: 1
+    winner: *fb
+    games:
+    - {blue: *fb,  red: *one, winner: *fb}
+    - {blue: *one, red: *fb,  winner: *one}
+    - {blue: *fb,  red: *one, winner: *fb}
+    - {blue: *fb,  red: *one, winner: *fb}
+  - team1: *we
+    team2: *yg
+    score1: 3
+    score2: 0
+    winner: *we
+    games:
+    - {blue: *we, red: *yg, winner: *we}
+    - {blue: *yg, red: *we, winner: *we}
+    - {blue: *we, red: *yg, winner: *we}
+- name: Group Stage
+  groups:
+  - name: Group A
+    winners: [*skt, *c9]
+    placements:
+    - {place: 1, team: *skt, wins: 5, losses: 1}
+    - {place: 2, team: *c9,  wins: 3, losses: 3}
+    - {place: 3, team: *ahq, wins: 2, losses: 4}
+    - {place: 3, team: *edg, wins: 2, losses: 4}
+    games:
+    - {label: Day 1, blue: *skt, red: *c9,  winner: *skt}
+    - {label: Day 1, blue: *edg, red: *ahq, winner: *ahq}
+    - {label: Day 2, blue: *ahq, red: *c9,  winner: *c9}
+    - {label: Day 2, blue: *edg, red: *skt, winner: *skt}
+    - {label: Day 3, blue: *skt, red: *ahq, winner: *skt}
+    - {label: Day 3, blue: *c9,  red: *edg, winner: *c9}
+    - {label: Day 8, blue: *ahq, red: *skt, winner: *ahq}
+    - {label: Day 8, blue: *edg, red: *c9,  winner: *edg}
+    - {label: Day 8, blue: *ahq, red: *edg, winner: *edg}
+    - {label: Day 8, blue: *c9,  red: *skt, winner: *skt}
+    - {label: Day 8, blue: *c9,  red: *ahq, winner: *c9}
+    - {label: Day 8, blue: *skt, red: *edg, winner: *skt}
+  - name: Group B
+    winners: [*lz, *fnc]
+    placements:
+    - {place: 1, team: *lz,  wins: 6, losses: 0}
+    - {place: 2, team: *fnc, wins: 2, losses: 4}
+    - {place: 3, team: *gam, wins: 2, losses: 4}
+    - {place: 4, team: *imt, wins: 2, losses: 4}
+    games:
+    - {label: Day 1, blue: *lz,  red: *imt, winner: *lz}
+    - {label: Day 1, blue: *fnc, red: *gam, winner: *gam}
+    - {label: Day 2, blue: *imt, red: *fnc, winner: *imt}
+    - {label: Day 2, blue: *lz,  red: *gam, winner: *lz}
+    - {label: Day 4, blue: *gam, red: *imt, winner: *imt}
+    - {label: Day 4, blue: *fnc, red: *lz,  winner: *lz}
+    - {label: Day 5, blue: *imt, red: *gam, winner: *gam}
+    - {label: Day 5, blue: *lz,  red: *fnc, winner: *lz}
+    - {label: Day 5, blue: *fnc, red: *imt, winner: *fnc}
+    - {label: Day 5, blue: *gam, red: *lz,  winner: *lz}
+    - {label: Day 5, blue: *gam, red: *fnc, winner: *fnc}
+    - {label: Day 5, blue: *imt, red: *lz,  winner: *lz}
+    - {label: Tiebreaker, blue: *fnc, red: *imt, winner: *fnc}
+    - {label: Tiebreaker, blue: *gam, red: *fnc, winner: *fnc}
+  - name: Group C
+    winners: [*rng, *ssg]
+    placements:
+    - {place: 1, team: *rng, wins: 5, losses: 1}
+    - {place: 2, team: *ssg, wins: 4, losses: 2}
+    - {place: 3, team: *g2,  wins: 3, losses: 3}
+    - {place: 4, team: *fb,  wins: 0, losses: 6}
+    games:
+    - {label: Day 1, blue: *rng, red: *fb,  winner: *rng}
+    - {label: Day 1, blue: *g2,  red: *ssg, winner: *ssg}
+    - {label: Day 3, blue: *g2,  red: *fb,  winner: *g2}
+    - {label: Day 3, blue: *ssg, red: *rng, winner: *rng}
+    - {label: Day 4, blue: *fb,  red: *ssg, winner: *ssg}
+    - {label: Day 4, blue: *rng, red: *g2,  winner: *rng}
+    - {label: Day 6, blue: *g2,  red: *rng, winner: *g2}
+    - {label: Day 6, blue: *ssg, red: *fb,  winner: *ssg}
+    - {label: Day 6, blue: *ssg, red: *g2,  winner: *ssg}
+    - {label: Day 6, blue: *fb,  red: *rng, winner: *rng}
+    - {label: Day 6, blue: *fb,  red: *g2,  winner: *g2}
+    - {label: Day 6, blue: *rng, red: *ssg, winner: *rng}
+  - name: Group D
+    winners: [*we, *msf]
+    placements:
+    - {place: 1, team: *we,  wins: 5, losses: 1}
+    - {place: 2, team: *msf, wins: 3, losses: 3}
+    - {place: 3, team: *tsm, wins: 3, losses: 3}
+    - {place: 4, team: *fw,  wins: 1, losses: 5}
+    games:
+    - {label: Day 2, blue: *fw,  red: *tsm, winner: *tsm}
+    - {label: Day 2, blue: *we,  red: *msf, winner: *we}
+    - {label: Day 3, blue: *tsm, red: *we,  winner: *tsm}
+    - {label: Day 3, blue: *fw,  red: *msf, winner: *msf}
+    - {label: Day 4, blue: *we,  red: *fw,  winner: *we}
+    - {label: Day 4, blue: *msf, red: *tsm, winner: *msf}
+    - {label: Day 7, blue: *msf, red: *fw,  winner: *msf}
+    - {label: Day 7, blue: *we,  red: *tsm, winner: *we}
+    - {label: Day 7, blue: *fw,  red: *we,  winner: *we}
+    - {label: Day 7, blue: *tsm, red: *msf, winner: *tsm}
+    - {label: Day 7, blue: *tsm, red: *fw,  winner: *fw}
+    - {label: Day 7, blue: *msf, red: *we,  winner: *we}
+    - {label: Tiebreaker, blue: *msf, red: *tsm, winner: *msf}
+- name: Knockout Stage
+  matches:
+  - label: Quarterfinal
+    team1: *rng
+    team2: *fnc
+    score1: 3
+    score2: 1
+    winner: *rng
+    games:
+    - {blue: *fnc, red: *rng, winner: *rng}
+    - {blue: *fnc, red: *rng, winner: *rng}
+    - {blue: *fnc, red: *rng, winner: *fnc}
+    - {blue: *fnc, red: *rng, winner: *rng}
+  - label: Quarterfinal
+    team1: *skt
+    team2: *msf
+    score1: 3
+    score2: 2
+    winner: *skt
+    games:
+    - {blue: *skt, red: *msf, winner: *skt}
+    - {blue: *msf, red: *skt, winner: *msf}
+    - {blue: *skt, red: *msf, winner: *msf}
+    - {blue: *msf, red: *skt, winner: *skt}
+    - {blue: *skt, red: *msf, winner: *skt}
+  - label: Quarterfinal
+    team1: *we
+    team2: *c9
+    score1: 3
+    score2: 2
+    winner: *we
+    games:
+    - {blue: *we, red: *c9, winner: *we}
+    - {blue: *c9, red: *we, winner: *c9}
+    - {blue: *we, red: *c9, winner: *c9}
+    - {blue: *c9, red: *we, winner: *we}
+    - {blue: *we, red: *c9, winner: *we}
+  - label: Quarterfinal
+    team1: *lz
+    team2: *ssg
+    score1: 0
+    score2: 3
+    winner: *ssg
+    games:
+    - {blue: *lz,  red: *ssg, winner: *ssg}
+    - {blue: *lz,  red: *ssg, winner: *ssg}
+    - {blue: *ssg, red: *lz,  winner: *ssg}
+  - label: Semifinal
+    team1: *rng
+    team2: *skt
+    score1: 2
+    score2: 3
+    winner: *skt
+    games:
+    - {blue: *rng, red: *skt, winner: *rng}
+    - {blue: *skt, red: *rng, winner: *skt}
+    - {blue: *rng, red: *skt, winner: *rng}
+    - {blue: *skt, red: *rng, winner: *skt}
+    - {blue: *rng, red: *skt, winner: *skt}
+  - label: Semifinal
+    team1: *we
+    team2: *ssg
+    score1: 1
+    score2: 3
+    winner: *ssg
+    games:
+    - {blue: *we,  red: *ssg, winner: *we}
+    - {blue: *ssg, red: *we,  winner: *ssg}
+    - {blue: *we,  red: *ssg, winner: *ssg}
+    - {blue: *ssg, red: *we,  winner: *ssg}
+  - label: Final
+    team1: *skt
+    team2: *ssg
+    score1: 0
+    score2: 3
+    winner: *ssg
+    games:
+    - {blue: *ssg, red: *skt, winner: *ssg}
+    - {blue: *ssg, red: *skt, winner: *ssg}
+    - {blue: *ssg, red: *skt, winner: *ssg}
