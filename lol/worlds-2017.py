@@ -40,7 +40,8 @@ teams_div.append(details)
 body.append(tournament.create_group_stage_section(data['stages'][0]))
 body.append(tournament.create_knockout_stage_section(data['stages'][1]))
 body.append(tournament.create_group_stage_section(data['stages'][2]))
-body.append(tournament.create_knockout_stage_section(data['stages'][3]))
+body.append(tournament.create_knockout_stage_section(data['stages'][3],
+            image=et.Element("img", src="worlds-2017.svg", alt="")))
 
 out = sys.stdout.buffer
 out.write(b"<!DOCTYPE html>\n")

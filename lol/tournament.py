@@ -175,12 +175,14 @@ def create_single_match_section(stage):
         _append_match(section, match)
     return section
 
-def create_knockout_stage_section(stage):
+def create_knockout_stage_section(stage, image=None):
     section = et.Element("section")
     et.SubElement(section, "h2").text = stage['name']
+    if image is not None:
+        section.append(image)
 
     clazz = "groups"
-    if 'label' in stage['matches'][0]:
+    if image is None and 'label' in stage['matches'][0]:
         clazz += " collapse-h3"
     groupsdiv = et.SubElement(section, "div", {"class": clazz})
 
