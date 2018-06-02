@@ -150,5 +150,5 @@ stages:
     games:
     - {blue: *rng, red: *kz, winner: *rng}
     - {blue: *rng, red: *kz, winner: *kz}
-    - {blue: *rng, red: *fw, winner: *rng}
+    - {blue: *rng, red: *kz, winner: *rng}
     - {blue: *rng, red: *kz, winner: *rng}
