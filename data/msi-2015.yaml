@@ -1,0 +1,71 @@
+abbr: MSI 2015
+name: Mid-Season Invitational 2015
+teams:
+- &skt {region: KR,  abbr: SKT, name: SK Telecom T1}
+- &edg {region: CN,  abbr: EDG, name: EDward Gaming}
+- &fnc {region: EU,  abbr: FNC, name: Fnatic}
+- &tsm {region: NA,  abbr: TSM, name: Team SoloMid}
+- &ahq {region: TW,  abbr: AHQ, name: ahq e-Sports Club}
+- &bjk {region: TR,  abbr: BJK, name: Beşiktaş e-Sports Club}
+stages:
+- name: Group Stage
+  winners: [*skt, *edg, *ahq, *fnc]
+  placements:
+  - {place: 1, team: *skt, wins: 5, losses: 0}
+  - {place: 2, team: *edg, wins: 4, losses: 1}
+  - {place: 3, team: *ahq, wins: 3, losses: 2}
+  - {place: 4, team: *fnc, wins: 2, losses: 3}
+  - {place: 5, team: *tsm, wins: 1, losses: 4}
+  - {place: 6, team: *bjk, wins: 0, losses: 5}
+  games:
+  - {label: Day 1, blue: *fnc, red: *tsm, winner: *fnc}
+  - {label: Day 1, blue: *bjk, red: *skt, winner: *skt}
+  - {label: Day 1, blue: *edg, red: *ahq, winner: *edg}
+  - {label: Day 1, blue: *bjk, red: *tsm, winner: *tsm}
+  - {label: Day 1, blue: *fnc, red: *ahq, winner: *ahq}
+  - {label: Day 1, blue: *skt, red: *edg, winner: *skt}
+  - {label: Day 1, blue: *ahq, red: *bjk, winner: *ahq}
+  - {label: Day 1, blue: *skt, red: *tsm, winner: *skt}
+  - {label: Day 2, blue: *edg, red: *fnc, winner: *edg}
+  - {label: Day 2, blue: *tsm, red: *ahq, winner: *ahq}
+  - {label: Day 2, blue: *edg, red: *bjk, winner: *edg}
+  - {label: Day 2, blue: *skt, red: *fnc, winner: *skt}
+  - {label: Day 2, blue: *tsm, red: *edg, winner: *edg}
+  - {label: Day 2, blue: *fnc, red: *bjk, winner: *fnc}
+  - {label: Day 2, blue: *ahq, red: *skt, winner: *skt}
+- name: Knockout Stage
+  matches:
+  - label: Semifinal
+    team1: *skt
+    team2: *fnc
+    score1: 3
+    score2: 2
+    winner: *skt
+    games:
+    - {blue: *skt, red: *fnc, winner: *skt}
+    - {blue: *fnc, red: *skt, winner: *fnc}
+    - {blue: *skt, red: *fnc, winner: *skt}
+    - {blue: *fnc, red: *skt, winner: *fnc}
+    - {blue: *skt, red: *fnc, winner: *skt}
+  - label: Semifinal
+    team1: *edg
+    team2: *ahq
+    score1: 3
+    score2: 0
+    winner: *edg
+    games:
+    - {blue: *edg, red: *ahq, winner: *edg}
+    - {blue: *ahq, red: *edg, winner: *edg}
+    - {blue: *edg, red: *ahq, winner: *edg}
+  - label: Final
+    team1: *skt
+    team2: *edg
+    score1: 2
+    score2: 3
+    winner: *edg
+    games:
+    - {blue: *skt, red: *edg, winner: *skt}
+    - {blue: *edg, red: *skt, winner: *edg}
+    - {blue: *skt, red: *edg, winner: *edg}
+    - {blue: *edg, red: *skt, winner: *skt}
+    - {blue: *skt, red: *edg, winner: *edg}

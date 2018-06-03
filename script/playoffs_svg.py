@@ -60,7 +60,7 @@ def create_single_elimination_svg(matches):
                 svg.append(create_connection(r * 100 + 70, ys[i] + 20,
                                             (r + 1) * 100, newys[-1] + 10))
                 svg.append(create_connection(r * 100 + 70, ys[i + 1] + 20,
-                                            (r + 1) * 100, newys[-1] + 35))
+                                            (r + 1) * 100, newys[-1] + 30))
             ys = newys
 
     return svg

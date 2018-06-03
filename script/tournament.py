@@ -214,8 +214,8 @@ class HTMLGenerator:
         body.extend(self.generate_stages(data))
         return html
     def generate_participants(self, data):
-        teams_table = tournament.create_teams_table(data['teams'])
-        details = tournament.wrap_details(teams_table, summary="Participants")
+        teams_table = create_teams_table(data['teams'])
+        details = wrap_details(teams_table, summary="Participants")
         teams = et.Element("div")
         teams.append(details)
         return teams

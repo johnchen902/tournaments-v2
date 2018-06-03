@@ -1,0 +1,84 @@
+abbr: MSI 2016
+name: Mid-Season Invitational 2016
+teams:
+- &skt {region: KR,  abbr: SKT, name: SK Telecom T1}
+- &rng {region: CN,  abbr: RNG, name: Royal Never Give Up}
+- &g2  {region: EU,  abbr: G2,  name: G2 Esports}
+- &clg {region: NA,  abbr: CLG, name: Counter Logic Gaming}
+- &fw  {region: TW,  abbr: FW,  name: Flash Wolves}
+- &sup {region: TR,  abbr: SUP, name: SuperMassive eSports}
+stages:
+- name: Group Stage
+  winners: [*rng, *clg, *fw, *skt]
+  placements:
+  - {place: 1, team: *rng, wins: 8, losses: 2}
+  - {place: 2, team: *clg, wins: 7, losses: 3}
+  - {place: 3, team: *fw,  wins: 6, losses: 4}
+  - {place: 4, team: *skt, wins: 6, losses: 4}
+  - {place: 5, team: *g2,  wins: 2, losses: 8}
+  - {place: 6, team: *sup, wins: 1, losses: 9}
+  games:
+  - {label: Day 1, blue: *rng, red: *clg, winner: *rng}
+  - {label: Day 1, blue: *g2,  red: *fw,  winner: *fw}
+  - {label: Day 1, blue: *skt, red: *sup, winner: *skt}
+  - {label: Day 1, blue: *clg, red: *fw,  winner: *clg}
+  - {label: Day 1, blue: *g2,  red: *skt, winner: *skt}
+  - {label: Day 1, blue: *sup, red: *rng, winner: *rng}
+  - {label: Day 2, blue: *clg, red: *g2,  winner: *clg}
+  - {label: Day 2, blue: *skt, red: *rng, winner: *rng}
+  - {label: Day 2, blue: *fw,  red: *sup, winner: *fw}
+  - {label: Day 2, blue: *rng, red: *g2,  winner: *rng}
+  - {label: Day 2, blue: *sup, red: *clg, winner: *sup}
+  - {label: Day 2, blue: *skt, red: *fw,  winner: *fw}
+  - {label: Day 3, blue: *fw,  red: *rng, winner: *rng}
+  - {label: Day 3, blue: *clg, red: *skt, winner: *clg}
+  - {label: Day 3, blue: *sup, red: *g2,  winner: *g2}
+  - {label: Day 3, blue: *fw,  red: *skt, winner: *fw}
+  - {label: Day 3, blue: *clg, red: *sup, winner: *clg}
+  - {label: Day 3, blue: *g2,  red: *rng, winner: *rng}
+  - {label: Day 4, blue: *g2,  red: *sup, winner: *g2}
+  - {label: Day 4, blue: *rng, red: *fw,  winner: *rng}
+  - {label: Day 4, blue: *skt, red: *clg, winner: *skt}
+  - {label: Day 4, blue: *fw,  red: *g2,  winner: *fw}
+  - {label: Day 4, blue: *clg, red: *rng, winner: *clg}
+  - {label: Day 4, blue: *sup, red: *skt, winner: *skt}
+  - {label: Day 5, blue: *rng, red: *sup, winner: *rng}
+  - {label: Day 5, blue: *fw,  red: *clg, winner: *clg}
+  - {label: Day 5, blue: *skt, red: *g2,  winner: *skt}
+  - {label: Day 5, blue: *sup, red: *fw,  winner: *fw}
+  - {label: Day 5, blue: *g2,  red: *clg, winner: *clg}
+  - {label: Day 5, blue: *rng, red: *skt, winner: *skt}
+- name: Knockout Stage
+  matches:
+  - label: Semifinal
+    team1: *rng
+    team2: *skt
+    score1: 1
+    score2: 3
+    winner: *skt
+    games:
+    - {blue: *rng, red: *skt, winner: *rng}
+    - {blue: *rng, red: *skt, winner: *skt}
+    - {blue: *rng, red: *skt, winner: *skt}
+    - {blue: *rng, red: *skt, winner: *skt}
+  - label: Semifinal
+    team1: *clg
+    team2: *fw
+    score1: 3
+    score2: 1
+    winner: *clg
+    games:
+    - {blue: *clg, red: *fw, winner: *clg}
+    - {blue: *clg, red: *fw, winner: *fw}
+    - {blue: *clg, red: *fw, winner: *clg}
+    - {blue: *clg, red: *fw, winner: *clg}
+  - label: Final
+    team1: *skt
+    team2: *clg
+    score1: 3
+    score2: 0
+    winner: *skt
+    games:
+    - {blue: *clg, red: *skt, winner: *skt}
+    - {blue: *clg, red: *skt, winner: *skt}
+    - {blue: *clg, red: *skt, winner: *skt}
