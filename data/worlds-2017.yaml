@@ -76,8 +76,8 @@ stages:
   - name: Group D
     winners: [*fb, *hka]
     placements:
-    - {place: 1, team: *fb,  wins: 3, losses: 3}
-    - {place: 2, team: *hka, wins: 3, losses: 3}
+    - {place: 1, team: *fb,  wins: 3, losses: 1}
+    - {place: 2, team: *hka, wins: 3, losses: 1}
     - {place: 3, team: *rpg, wins: 0, losses: 4}
     games:
     - {label: Day 3, blue: *rpg, red: *hka, winner: *hka}
