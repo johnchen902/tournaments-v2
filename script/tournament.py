@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as et
+import io
 import itertools
 
 def wrap_details(*elements, summary=None):
@@ -190,6 +191,12 @@ def create_knockout_stage_section(stage, image=None):
         subsection = et.SubElement(groupsdiv, "div")
         _append_match(subsection, match)
     return section
+
+def svg_to_image(svg, **attr):
+    string_io = io.StringIO()
+    et.ElementTree(svg).write(string_io, encoding="unicode")
+    src = 'data:image/svg+xml,' + string_io.getvalue()
+    return et.Element("img", src=src, **attr)
 
 class HTMLGenerator:
     def generate(self, data):

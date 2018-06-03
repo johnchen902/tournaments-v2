@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as et
 
 import tournament
+import playoffs_svg
 
 class Worlds2017Generator(tournament.HTMLGenerator):
     def generate_participants(self, data):
@@ -21,31 +22,19 @@ class Worlds2017Generator(tournament.HTMLGenerator):
         if i == 1:
             return tournament.create_knockout_stage_section(stage)
         if i == 3:
-            image = et.Element("img", src="worlds-2017.svg", alt="")
+            svg = playoffs_svg.create_single_elimination_svg(stage['matches'])
+            image = tournament.svg_to_image(svg, alt="")
             return tournament.create_knockout_stage_section(stage, image=image)
 
 if __name__ == '__main__':
     from html5lib.serializer import serialize
-    import os
     import sys
     import yaml
 
-    import playoffs_svg
-
-    datadir = os.getenv('DATADIR', '../data')
-    htmldir = os.getenv('HTMLDIR', '../html')
-
-    data = yaml.safe_load(open(datadir + '/worlds-2017.yaml'))
+    data = yaml.safe_load(sys.stdin)
     html = Worlds2017Generator().generate(data)
 
-    with open(htmldir + '/worlds-2017.html', 'wb') as out:
-        out.write(b"<!DOCTYPE html>\n")
-        out.write(serialize(html, encoding='ascii', inject_meta_charset=False))
-        out.write(b"\n")
-
-    matches = data['stages'][3]['matches']
-    svg = playoffs_svg.create_single_elimination_svg(matches)
-
-    with open(htmldir + '/worlds-2017.svg', 'wb') as out:
-        et.ElementTree(svg).write(out)
-        out.write(b"\n")
+    out = sys.stdout.buffer
+    out.write(b"<!DOCTYPE html>\n")
+    out.write(serialize(html, encoding='ascii', inject_meta_charset=False))
+    out.write(b"\n")
