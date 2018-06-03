@@ -190,3 +190,34 @@ def create_knockout_stage_section(stage, image=None):
         subsection = et.SubElement(groupsdiv, "div")
         _append_match(subsection, match)
     return section
+
+class HTMLGenerator:
+    def generate(self, data):
+        html = et.Element("html", lang="en")
+        head = et.SubElement(html, "head")
+        et.SubElement(head, "meta", charset="utf-8")
+        et.SubElement(head, "title").text = data['abbr']
+        et.SubElement(head, "meta", name="viewport",
+                      content="width=device-width, initial-scale=1")
+        et.SubElement(head, "link", rel="stylesheet", href="style.css")
+
+        body = et.SubElement(html, "body")
+        et.SubElement(body, "h1").text = data['name']
+        body.append(self.generate_participants(data))
+        body.extend(self.generate_stages(data))
+        return html
+    def generate_participants(self, data):
+        teams_table = tournament.create_teams_table(data['teams'])
+        details = tournament.wrap_details(teams_table, summary="Participants")
+        teams = et.Element("div")
+        teams.append(details)
+        return teams
+    def generate_stages(self, data):
+        result = []
+        for i, stage in enumerate(data['stages']):
+            result.append(self.generate_stage(i, stage))
+        return result
+    def generate_stage(self, i, stage):
+        section = et.Element("section")
+        et.SubElement(section, "h2").text = stage['name']
+        return section

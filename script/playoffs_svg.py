@@ -1,9 +1,5 @@
-import itertools
-import sys
 import xml.etree.ElementTree as et
-import yaml
-
-import tournament
+import math
 
 def create_rect(x, y, width, height, **attr):
     x, y, width, height = map(str, (x, y, width, height))
@@ -39,31 +35,32 @@ def create_connection(x1, y1, x2, y2):
     return create_polyline((x1, y1), (xm, y1), (xm, y2), (x2, y2),
                            fill="none", stroke="black")
 
-def create_single_elimination_8_svg(matches):
-    svg = et.Element("svg", width="280px", height="200px",
-                            viewBox="-5.5 -5.5 280 200",
+def create_single_elimination_svg(matches):
+    rounds = math.floor(math.log2(len(matches))) + 1
+    r1matches = (2 ** (rounds - 1))
+
+    width = rounds * 100 - 20
+    height = r1matches * 50
+
+    svg = et.Element("svg", width="%dpx" % width, height="%dpx" % height,
+                            viewBox="-5.5 -5.5 %d %d" % (width, height),
                             xmlns="http://www.w3.org/2000/svg")
+    
+    ys = [i * 50 for i in range(r1matches)]
+    matchid = 0
 
-    svg.append(create_matchbox(  0,   0, 70, 40, matches[0]))
-    svg.append(create_matchbox(  0,  50, 70, 40, matches[1]))
-    svg.append(create_matchbox(  0, 100, 70, 40, matches[2]))
-    svg.append(create_matchbox(  0, 150, 70, 40, matches[3]))
+    for r in range(rounds):
+        for y in ys:
+            svg.append(create_matchbox(r * 100, y, 70, 40, matches[matchid]))
+            matchid += 1
+        if len(ys) >= 2:
+            newys = []
+            for i in range(0, len(ys), 2):
+                newys.append((ys[i] + ys[i + 1]) / 2)
+                svg.append(create_connection(r * 100 + 70, ys[i] + 20,
+                                            (r + 1) * 100, newys[-1] + 10))
+                svg.append(create_connection(r * 100 + 70, ys[i + 1] + 20,
+                                            (r + 1) * 100, newys[-1] + 35))
+            ys = newys
 
-    svg.append(create_matchbox(100,  25, 70, 40, matches[4]))
-    svg.append(create_matchbox(100, 125, 70, 40, matches[5]))
-
-    svg.append(create_matchbox(200,  75, 70, 40, matches[6]))
-
-    svg.append(create_connection( 70,  20, 100,  35))
-    svg.append(create_connection( 70,  70, 100,  55))
-    svg.append(create_connection( 70, 120, 100, 135))
-    svg.append(create_connection( 70, 170, 100, 155))
-
-    svg.append(create_connection(170,  45, 200,  85))
-    svg.append(create_connection(170, 145, 200, 105))
     return svg
-
-data = yaml.safe_load(open('worlds-2017.yaml'))
-matches = data['stages'][3]['matches']
-svg = create_single_elimination_8_svg(matches)
-et.ElementTree(svg).write(sys.stdout.buffer)

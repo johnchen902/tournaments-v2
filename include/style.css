@@ -31,6 +31,12 @@ img {
     margin-top: -1.17em
 }
 
+#participants td:nth-child(3) {
+    text-align: left;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
 .grouptable td:nth-child(1) {
     /* Place */
     min-width: 3ch;
