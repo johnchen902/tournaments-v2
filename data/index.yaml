@@ -1,0 +1,61 @@
+- name: League of Legends World Championship
+  abbr: Worlds
+  seasons:
+  - {year: 2011, href: worlds-2011.html, anchor: S1}
+  - {year: 2012, href: worlds-2012.html, anchor: S2}
+  - {year: 2013, href: worlds-2013.html, anchor: S3}
+  - {year: 2014, href: worlds-2014.html}
+  - {year: 2015, href: worlds-2015.html}
+  - {year: 2016, href: worlds-2016.html}
+  - {year: 2017, href: worlds-2017.html}
+- name: Mid-Season Invitational
+  abbr: MSI
+  seasons:
+  - {year: 2015, href: msi-2015.html}
+  - {year: 2016, href: msi-2016.html}
+  - {year: 2017, href: msi-2017.html}
+  - {year: 2018, href: msi-2018.html}
+- name: League of Legends Master Series
+  abbr: LMS
+  seasons:
+  - {year: 2015, href: lms-2015.html}
+  - {year: 2016, href: lms-2016.html}
+  - {year: 2017, href: lms-2017.html}
+  - {year: 2018, href: lms-2018.html}
+- name: League of Legends Champions Korea
+  abbr: LCK
+  seasons:
+  - {year: 2012, href: lck-2012.html}
+  - {year: 2013, href: lck-2013.html}
+  - {year: 2014, href: lck-2014.html}
+  - {year: 2015, href: lck-2015.html}
+  - {year: 2016, href: lck-2016.html}
+  - {year: 2017, href: lck-2017.html}
+  - {year: 2018, href: lck-2018.html}
+- name: League of Legends Pro League
+  abbr: LPL
+  seasons:
+  - {year: 2013, href: lpl-2013.html}
+  - {year: 2014, href: lpl-2014.html}
+  - {year: 2015, href: lpl-2015.html}
+  - {year: 2016, href: lpl-2016.html}
+  - {year: 2017, href: lpl-2017.html}
+  - {year: 2018, href: lpl-2018.html}
+- name: North American League of Legends Championship Series
+  abbr: NA LCS
+  seasons:
+  - {year: 2013, href: nalcs-2013.html}
+  - {year: 2014, href: nalcs-2014.html}
+  - {year: 2015, href: nalcs-2015.html}
+  - {year: 2016, href: nalcs-2016.html}
+  - {year: 2017, href: nalcs-2017.html}
+  - {year: 2018, href: nalcs-2018.html}
+- name: European League of Legends Championship Series
+  abbr: EU LCS
+  seasons:
+  - {year: 2013, href: eulcs-2013.html}
+  - {year: 2014, href: eulcs-2014.html}
+  - {year: 2015, href: eulcs-2015.html}
+  - {year: 2016, href: eulcs-2016.html}
+  - {year: 2017, href: eulcs-2017.html}
+  - {year: 2018, href: eulcs-2018.html}

@@ -1,23 +1,32 @@
-.PHONY: all include clean
+.PHONY: all static clean
 .DELETE_ON_ERROR:
 
+SHELL = bash
 HTMLDIR = html
 DATADIR = data
 SCRIPTDIR = script
-INCLUDEDIR = include
+STATICDIR = static
 
 TOURNAMENTS += msi-2015 msi-2016 msi-2017 msi-2018
 TOURNAMENTS += worlds-2017
 
 TARGETS = $(addprefix $(HTMLDIR)/,$(addsuffix .html,$(TOURNAMENTS)))
 
-all: include $(TARGETS)
+all: static $(TARGETS) $(HTMLDIR)/index.html
 
-include:
-	cp -r $(INCLUDEDIR)/* $(HTMLDIR)
+static $(TARGETS) $(HTMLDIR)/index.html: | $(HTMLDIR)
+
+$(HTMLDIR):
+	mkdir -p $(HTMLDIR)
+
+static:
+	cp -r $(STATICDIR)/* $(HTMLDIR)
 
 $(TARGETS): $(HTMLDIR)/%.html: $(DATADIR)/%.yaml $(SCRIPTDIR)/%.py
 	python $(SCRIPTDIR)/$*.py < $(DATADIR)/$*.yaml > $@
 
+$(HTMLDIR)/index.html: $(DATADIR)/index.yaml $(SCRIPTDIR)/index.py | $(TARGETS)
+	python $(SCRIPTDIR)/index.py $(HTMLDIR) < $(DATADIR)/index.yaml > $@
+
 clean:
-	$(RM) -r $(HTMLDIR)/*
+	$(RM) -r $(HTMLDIR)
