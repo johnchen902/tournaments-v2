@@ -8,31 +8,47 @@ def create_index(data, pages):
     et.SubElement(head, "meta", name="viewport",
                   content="width=device-width, initial-scale=1")
     et.SubElement(head, "link", rel="stylesheet", href="style.css")
+    et.SubElement(head, "style").text = """
+        #tournament-list > section {
+            margin-top: 1ch;
+            margin-bottom: 1ch;
+        }
+        #tournament-list > section > h2 {
+            display: inline;
+            font-size: 120%;
+        }
+        #tournament-list > section > h2::after {
+            content: ": ";
+        }
+        .touchable {
+            display: inline-block;
+            padding: 0.5ch 1ch;
+            background-color: #eee;
+            color: #000;
+            border-radius: 1ch;
+        }
+    """
 
     body = et.SubElement(html, "body")
     et.SubElement(body, "h1").text = "League of Legends Tournament Results"
 
-    table = et.SubElement(html, "table")
+    div = et.SubElement(html, "div", {"id": "tournament-list"})
     for tournament in data:
-        tr = et.SubElement(table, "tr")
+        section = et.SubElement(div, "section")
 
-        th = et.SubElement(tr, "th")
-        abbr = et.SubElement(th, "abbr", title=tournament['name'])
-        abbr.text = tournament['abbr']
+        h2 = et.SubElement(section, "h2")
+        h2.text = tournament['abbr']
+        h2.tail = tournament['name']
+        et.SubElement(section, "br")
 
-        lastyear = 2011
         for season in tournament['seasons']:
-            if lastyear < season['year']:
-                et.SubElement(tr, "td", colspan=str(season['year'] - lastyear))
-                lastyear = season['year']
-
-            td = et.SubElement(tr, "td")
+            span = et.SubElement(section, "span", {"class": "touchable"})
             anchor = season.get('anchor', str(season['year']))
             if season['href'] in pages:
-                et.SubElement(td, "a", href=season['href']).text = anchor
+                et.SubElement(span, "a", href=season['href']).text = anchor
             else:
-                td.text = anchor
-            lastyear += 1
+                span.text = anchor
+            span.tail = " "
     return html
 
 if __name__ == '__main__':

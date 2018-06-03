@@ -5,9 +5,10 @@
 }
 table {
     border-collapse: collapse;
-}
-th, td {
     border: 1px solid black;
+}
+thead, tbody, tfoot, tr, th, td {
+    border: inherit;
     text-align: center;
 }
 img {
