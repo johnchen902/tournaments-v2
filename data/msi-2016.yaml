@@ -9,14 +9,13 @@ teams:
 - &sup {region: TR,  abbr: SUP, name: SuperMassive eSports}
 stages:
 - name: Group Stage
-  winners: [*rng, *clg, *fw, *skt]
   placements:
-  - {place: 1, team: *rng, wins: 8, losses: 2}
-  - {place: 2, team: *clg, wins: 7, losses: 3}
-  - {place: 3, team: *fw,  wins: 6, losses: 4}
-  - {place: 4, team: *skt, wins: 6, losses: 4}
-  - {place: 5, team: *g2,  wins: 2, losses: 8}
-  - {place: 6, team: *sup, wins: 1, losses: 9}
+  - {place: 1, team: *rng, wins: 8, losses: 2, class: won}
+  - {place: 2, team: *clg, wins: 7, losses: 3, class: won}
+  - {place: 3, team: *fw,  wins: 6, losses: 4, class: won}
+  - {place: 4, team: *skt, wins: 6, losses: 4, class: won}
+  - {place: 5, team: *g2,  wins: 2, losses: 8, class: lost}
+  - {place: 6, team: *sup, wins: 1, losses: 9, class: lost}
   games:
   - {label: Day 1, blue: *rng, red: *clg, winner: *rng}
   - {label: Day 1, blue: *g2,  red: *fw,  winner: *fw}

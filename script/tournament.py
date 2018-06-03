@@ -2,6 +2,7 @@ from collections import OrderedDict
 import xml.etree.ElementTree as et
 import io
 import itertools
+import math
 
 def wrap_details(*elements, summary=None):
     details = et.Element("details")
@@ -13,6 +14,8 @@ def wrap_details(*elements, summary=None):
 def create_teams_table(teams, labels={}):
     table = et.Element("table", {"class": "participants"})
 
+    has_region = 'region' in teams[0]
+
     for i, team in enumerate(teams):
         if i in labels:
             tr = et.SubElement(table, "tr")
@@ -20,12 +23,14 @@ def create_teams_table(teams, labels={}):
 
         if i == 0:
             tr = et.SubElement(table, "tr")
-            et.SubElement(tr, "th").text = "Region"
+            if has_region:
+                et.SubElement(tr, "th").text = "Region"
             et.SubElement(tr, "th").text = "ID"
             et.SubElement(tr, "th").text = "Team"
 
         tr = et.SubElement(table, "tr")
-        et.SubElement(tr, "td", {"class": "region"}).text = team["region"]
+        if has_region:
+            et.SubElement(tr, "td", {"class": "region"}).text = team["region"]
         et.SubElement(tr, "td", {"class": "teamabbr"}).text = team["abbr"]
         et.SubElement(tr, "td", {"class": "teamname"}).text = team["name"]
 
@@ -61,7 +66,7 @@ def create_region_teams_table(region_teams):
             et.SubElement(tr, "td", {"class": "teamname"}).text = team["name"]
     return table
 
-def create_group_table(placements, winners):
+def create_group_table(placements):
     table = et.Element("table", {"class": "grouptable"})
 
     tr = et.SubElement(table, "tr")
@@ -73,7 +78,25 @@ def create_group_table(placements, winners):
         for text in [row['place'], row['team']['abbr'],
                      row['wins'], row['losses']]:
             et.SubElement(tr, "td").text = str(text)
-        tr[1].set("class", "won" if row['team'] in winners else "lost")
+        if 'class' in row:
+            tr[1].set("class", row['class'])
+    return table
+
+def create_bo3_group_table(placements):
+    table = et.Element("table", {"class": "grouptable"})
+
+    tr = et.SubElement(table, "tr")
+    for text in ["Place", "Team", "W", "L", "GW", "GL"]:
+        et.SubElement(tr, "th").text = text
+
+    for row in placements:
+        tr = et.SubElement(table, "tr")
+        for text in [row['place'], row['team']['abbr'],
+                     row['wins'], row['losses'],
+                     row['gamewins'], row['gamelosses']]:
+            et.SubElement(tr, "td").text = str(text)
+        if 'class' in row:
+            tr[1].set("class", row['class'])
     return table
 
 def compute_crosstable_from_games(teams, games):
@@ -86,6 +109,28 @@ def compute_crosstable_from_games(teams, games):
             crosstable[i][j] += 1
         elif red == game['winner']:
             crosstable[j][i] += 1
+    return crosstable
+
+def compute_match_crosstable_from_matches(teams, matches):
+    crosstable = [[0] * len(teams) for _ in teams]
+    for match in matches:
+        team1, team2 = match['team1'], match['team2']
+        i = teams.index(team1)
+        j = teams.index(team2)
+        if team1 == match['winner']:
+            crosstable[i][j] += 1
+        elif team2 == match['winner']:
+            crosstable[j][i] += 1
+    return crosstable
+
+def compute_game_crosstable_from_matches(teams, matches):
+    crosstable = [[0] * len(teams) for _ in teams]
+    for match in matches:
+        team1, team2 = match['team1'], match['team2']
+        i = teams.index(team1)
+        j = teams.index(team2)
+        crosstable[i][j] += match['score1']
+        crosstable[j][i] += match['score2']
     return crosstable
 
 def create_crosstable(teams, crosstable):
@@ -138,6 +183,23 @@ def create_games_table(games):
         table.append(tr)
     return table
 
+def create_matches_table(matches):
+    table = et.Element("table", {"class": "matchbox"})
+
+    lastlabel = None
+    for match in matches:
+        label = match.get('label')
+        if label is not None and (lastlabel is None or lastlabel != label):
+            tr = et.SubElement(table, "tr")
+            et.SubElement(tr, "th", colspan="4").text = label
+            lastlabel = label
+        team1, team2, winner = match['team1'], match['team2'], match['winner']
+        tr = create_matchbox_tr(
+                team1['abbr'], team1 == winner, str(match['score1']),
+                team2['abbr'], team2 == winner, str(match['score2']))
+        table.append(tr)
+    return table
+
 def _extend_groups(section, groups):
     groupsdiv = et.SubElement(section, "div", {"class": "groups collapse-h3"})
 
@@ -145,12 +207,11 @@ def _extend_groups(section, groups):
         subsection = et.SubElement(groupsdiv, "section")
         et.SubElement(subsection, "h3").text = group['name']
 
-        subsection.append(create_group_table(group["placements"],
-                                             group["winners"]))
+        subsection.append(create_group_table(group["placements"]))
 
         teams = [row['team'] for row in group['placements']]
-        crosstable = compute_crosstable_from_games(teams, group['games'])
-        crosstable = create_crosstable(teams, crosstable)
+        data = compute_crosstable_from_games(teams, group['games'])
+        crosstable = create_crosstable(teams, data)
         details = wrap_details(crosstable, summary="Crosstable")
         subsection.append(details)
 
@@ -159,11 +220,11 @@ def _extend_groups(section, groups):
         subsection.append(details)
 
 def _extend_single_group(section, group):
-    section.append(create_group_table(group['placements'], group['winners']))
+    section.append(create_group_table(group['placements']))
 
     teams = [row['team'] for row in group['placements']]
-    crosstable = compute_crosstable_from_games(teams, group['games'])
-    crosstable = create_crosstable(teams, crosstable)
+    data = compute_crosstable_from_games(teams, group['games'])
+    crosstable = create_crosstable(teams, data)
     details = wrap_details(crosstable, summary="Crosstable")
     section.append(details)
 
@@ -171,6 +232,26 @@ def _extend_single_group(section, group):
     for _, games in itertools.groupby(group['games'], lambda g: g['label']):
         groupsdiv.append(create_games_table(games))
     details = wrap_details(groupsdiv, summary="Games")
+    section.append(details)
+
+def _extend_single_bo3_group(section, group):
+    section.append(create_bo3_group_table(group['placements']))
+    teams = [row['team'] for row in group['placements']]
+
+    data = compute_match_crosstable_from_matches(teams, group['matches'])
+    crosstable = create_crosstable(teams, data)
+    details = wrap_details(crosstable, summary="Match Crosstable")
+    section.append(details)
+
+    data = compute_game_crosstable_from_matches(teams, group['matches'])
+    crosstable = create_crosstable(teams, data)
+    details = wrap_details(crosstable, summary="Game Crosstable")
+    section.append(details)
+
+    groupsdiv = et.Element("div", {"class": "groups"})
+    for _, games in itertools.groupby(group['matches'], lambda g: g['label']):
+        groupsdiv.append(create_matches_table(games))
+    details = wrap_details(groupsdiv, summary="Matches")
     section.append(details)
 
 def create_group_stage_section(stage):
@@ -181,6 +262,17 @@ def create_group_stage_section(stage):
         _extend_groups(section, stage['groups'])
     else:
         _extend_single_group(section, stage)
+
+    return section
+
+def create_bo3_group_stage_section(stage):
+    section = et.Element("section")
+    et.SubElement(section, "h2").text = stage['name']
+
+    if 'groups' in stage:
+        _extend_bo3_groups(section, stage['groups'])
+    else:
+        _extend_single_bo3_group(section, stage)
 
     return section
 
@@ -223,6 +315,50 @@ def create_knockout_stage_section(stage, image=None):
     for match in stage['matches']:
         subsection = et.SubElement(groupsdiv, "div")
         _append_match(subsection, match)
+    return section
+
+def _points_to_str(point):
+    if point is None:
+        return ''
+    if point == math.inf:
+        return '\u221e'
+    return str(point)
+
+def _total_points(spring, summer):
+    if spring is None:
+        return summer
+    if summer is None:
+        return spring
+    return spring + summer
+
+def create_championship_points_table(placements):
+    table = et.Element("table", {"class": "championship-points"})
+
+    tr = et.SubElement(table, "tr")
+    et.SubElement(tr, "th").text = "Team"
+    et.SubElement(tr, "th").text = "Spring"
+    et.SubElement(tr, "th").text = "Summer"
+    et.SubElement(tr, "th").text = "Total"
+
+    for row in placements:
+        spring = row['spring']
+        summer = row['summer']
+        total = _total_points(spring, summer)
+
+        tr = et.SubElement(table, "tr")
+        et.SubElement(tr, "td").text = row['team']['abbr']
+        et.SubElement(tr, "td").text = _points_to_str(spring)
+        et.SubElement(tr, "td").text = _points_to_str(summer)
+        et.SubElement(tr, "td").text = _points_to_str(total)
+
+        if 'class' in row:
+            tr[0].set("class", row['class'])
+    return table
+
+def create_championship_points_section(stage):
+    section = et.Element("section")
+    et.SubElement(section, "h2").text = stage['name']
+    section.append(create_championship_points_table(stage['placements']))
     return section
 
 def svg_to_image(svg, **attr):

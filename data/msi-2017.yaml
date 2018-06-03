@@ -18,12 +18,11 @@ stages:
 - name: Play-In Round 1
   groups:
   - name: Group A
-    winners: [*sup]
     placements:
-    - {place: 1, team: *sup, wins: 5, losses: 1}
-    - {place: 2, team: *red, wins: 4, losses: 2}
-    - {place: 3, team: *dw,  wins: 2, losses: 4}
-    - {place: 4, team: *rpg, wins: 1, losses: 5}
+    - {place: 1, team: *sup, wins: 5, losses: 1, class: won}
+    - {place: 2, team: *red, wins: 4, losses: 2, class: lost}
+    - {place: 3, team: *dw,  wins: 2, losses: 4, class: lost}
+    - {place: 4, team: *rpg, wins: 1, losses: 5, class: lost}
     games:
     - {label: Day 1, blue: *red, red: *dw,  winner: *red}
     - {label: Day 1, blue: *sup, red: *rpg, winner: *sup}
@@ -38,12 +37,11 @@ stages:
     - {label: Day 3, blue: *red, red: *sup, winner: *red}
     - {label: Day 3, blue: *rpg, red: *dw,  winner: *rpg}
   - name: Group B
-    winners: [*gam]
     placements:
-    - {place: 1, team: *gam, wins: 5, losses: 1}
-    - {place: 2, team: *lyn, wins: 4, losses: 2}
-    - {place: 3, team: *vp,  wins: 2, losses: 4}
-    - {place: 4, team: *isg, wins: 1, losses: 5}
+    - {place: 1, team: *gam, wins: 5, losses: 1, class: won}
+    - {place: 2, team: *lyn, wins: 4, losses: 2, class: lost}
+    - {place: 3, team: *vp,  wins: 2, losses: 4, class: lost}
+    - {place: 4, team: *isg, wins: 1, losses: 5, class: lost}
     games:
     - {label: Day 2, blue: *vp,  red: *lyn, winner: *lyn}
     - {label: Day 2, blue: *gam, red: *isg, winner: *gam}
@@ -92,14 +90,13 @@ stages:
     - {blue: *sup, red: *gam, winner: *gam}
     - {blue: *gam, red: *sup, winner: *gam}
 - name: Group Stage
-  winners: [*skt, *we, *g2, *fw]
   placements:
-  - {place: 1, team: *skt, wins: 8, losses: 2}
-  - {place: 2, team: *we,  wins: 7, losses: 3}
-  - {place: 3, team: *g2,  wins: 4, losses: 6}
-  - {place: 4, team: *fw,  wins: 4, losses: 6}
-  - {place: 5, team: *tsm, wins: 4, losses: 6}
-  - {place: 6, team: *gam, wins: 3, losses: 7}
+  - {place: 1, team: *skt, wins: 8, losses: 2, class: won}
+  - {place: 2, team: *we,  wins: 7, losses: 3, class: won}
+  - {place: 3, team: *g2,  wins: 4, losses: 6, class: won}
+  - {place: 4, team: *fw,  wins: 4, losses: 6, class: won}
+  - {place: 5, team: *tsm, wins: 4, losses: 6, class: lost}
+  - {place: 6, team: *gam, wins: 3, losses: 7, class: lost}
   games:
   - {label: Day 1, blue: *g2,  red: *skt, winner: *skt}
   - {label: Day 1, blue: *we,  red: *fw,  winner: *we}

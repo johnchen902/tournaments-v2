@@ -64,3 +64,18 @@ def create_single_elimination_svg(matches):
             ys = newys
 
     return svg
+
+def create_gauntlet_svg(matches):
+    n = len(matches)
+    width = n * 100 - 20
+    height = n * 20 + 40
+
+    svg = et.Element("svg", width="%dpx" % width, height="%dpx" % height,
+                            viewBox="-5.5 -5.5 %d %d" % (width, height),
+                            xmlns="http://www.w3.org/2000/svg")
+    for i, match in enumerate(matches):
+        svg.append(create_matchbox(i * 100, (n - 1 - i) * 20, 70, 40, match))
+        if i < n - 1:
+            svg.append(create_connection(i * 100 + 70, (n - 1 - i) * 20 + 20,
+                                   (i + 1) * 100, (n - 1 - (i + 1)) * 20 + 30))
+    return svg

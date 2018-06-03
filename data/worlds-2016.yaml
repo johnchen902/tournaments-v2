@@ -24,12 +24,11 @@ stages:
 - name: Group Stage
   groups:
   - name: Group A
-    winners: [*rox, *anx]
     placements:
-    - {place: 1, team: *rox, wins: 4, losses: 2}
-    - {place: 2, team: *anx, wins: 4, losses: 2}
-    - {place: 3, team: *clg, wins: 3, losses: 3}
-    - {place: 4, team: *g2,  wins: 1, losses: 5}
+    - {place: 1, team: *rox, wins: 4, losses: 2, class: won}
+    - {place: 2, team: *anx, wins: 4, losses: 2, class: won}
+    - {place: 3, team: *clg, wins: 3, losses: 3, class: lost}
+    - {place: 4, team: *g2,  wins: 1, losses: 5, class: lost}
     games:
     - {label: Day 1, blue: *g2,  red: *clg, winner: *clg}
     - {label: Day 1, blue: *rox, red: *anx, winner: *rox}
@@ -45,12 +44,11 @@ stages:
     - {label: Day 5, blue: *rox, red: *clg, winner: *rox}
     - {label: Tiebreaker, blue: *rox, red: *anx, winner: *rox}
   - name: Group B
-    winners: [*skt, *c9]
     placements:
-    - {place: 1, team: *skt, wins: 5, losses: 1}
-    - {place: 2, team: *c9,  wins: 3, losses: 3}
-    - {place: 3, team: *im,  wins: 2, losses: 4}
-    - {place: 4, team: *fw,  wins: 2, losses: 4}
+    - {place: 1, team: *skt, wins: 5, losses: 1, class: won}
+    - {place: 2, team: *c9,  wins: 3, losses: 3, class: won}
+    - {place: 3, team: *im,  wins: 2, losses: 4, class: lost}
+    - {place: 4, team: *fw,  wins: 2, losses: 4, class: lost}
     games:
     - {label: Day 2, blue: *skt, red: *c9,  winner: *skt}
     - {label: Day 2, blue: *fw,  red: *im,  winner: *im}
@@ -65,12 +63,11 @@ stages:
     - {label: Day 8, blue: *im,  red: *c9,  winner: *c9}
     - {label: Day 8, blue: *fw,  red: *skt, winner: *skt}
   - name: Group C
-    winners: [*h2k, *edg]
     placements:
-    - {place: 1, team: *h2k, wins: 4, losses: 2}
-    - {place: 2, team: *edg, wins: 4, losses: 2}
-    - {place: 3, team: *ahq, wins: 3, losses: 3}
-    - {place: 4, team: *itz, wins: 1, losses: 5}
+    - {place: 1, team: *h2k, wins: 4, losses: 2, class: won}
+    - {place: 2, team: *edg, wins: 4, losses: 2, class: won}
+    - {place: 3, team: *ahq, wins: 3, losses: 3, class: lost}
+    - {place: 4, team: *itz, wins: 1, losses: 5, class: lost}
     games:
     - {label: Day 1, blue: *h2k, red: *ahq, winner: *ahq}
     - {label: Day 1, blue: *itz, red: *edg, winner: *itz}
@@ -86,12 +83,11 @@ stages:
     - {label: Day 6, blue: *ahq, red: *edg, winner: *edg}
     - {label: Tiebreaker, blue: *h2k, red: *edg, winner: *h2k}
   - name: Group D
-    winners: [*ssg, *rng]
     placements:
-    - {place: 1, team: *ssg, wins: 5, losses: 1}
-    - {place: 2, team: *rng, wins: 3, losses: 3}
-    - {place: 3, team: *tsm, wins: 3, losses: 3}
-    - {place: 4, team: *spy, wins: 1, losses: 5}
+    - {place: 1, team: *ssg, wins: 5, losses: 1, class: won}
+    - {place: 2, team: *rng, wins: 3, losses: 3, class: won}
+    - {place: 3, team: *tsm, wins: 3, losses: 3, class: lost}
+    - {place: 4, team: *spy, wins: 1, losses: 5, class: lost}
     games:
     - {label: Day 1, blue: *ssg, red: *spy, winner: *ssg}
     - {label: Day 1, blue: *tsm, red: *rng, winner: *rng}

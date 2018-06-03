@@ -19,12 +19,11 @@ stages:
 - name: Play-In Round 1
   groups:
   - name: Group A
-    winners: [*gmb]
     placements:
-    - {place: 1, team: *gmb, wins: 5, losses: 1}
-    - {place: 2, team: *r7,  wins: 3, losses: 3}
-    - {place: 3, team: *asc, wins: 2, losses: 4}
-    - {place: 3, team: *klg, wins: 2, losses: 4}
+    - {place: 1, team: *gmb, wins: 5, losses: 1, class: won}
+    - {place: 2, team: *r7,  wins: 3, losses: 3, class: lost}
+    - {place: 3, team: *asc, wins: 2, losses: 4, class: lost}
+    - {place: 3, team: *klg, wins: 2, losses: 4, class: lost}
     games:
     - {label: Day 1, blue: *gmb, red: *klg, winner: *gmb}
     - {label: Day 1, blue: *r7,  red: *asc, winner: *r7}
@@ -39,12 +38,11 @@ stages:
     - {label: Day 3, blue: *gmb, red: *r7,  winner: *gmb}
     - {label: Day 3, blue: *asc, red: *klg, winner: *asc}
   - name: Group B
-    winners: [*sup]
     placements:
-    - {place: 1, team: *sup, wins: 5, losses: 1}
-    - {place: 2, team: *kbm, wins: 4, losses: 2}
-    - {place: 3, team: *dw,  wins: 2, losses: 4}
-    - {place: 4, team: *pgm, wins: 1, losses: 5}
+    - {place: 1, team: *sup, wins: 5, losses: 1, class: won}
+    - {place: 2, team: *kbm, wins: 4, losses: 2, class: lost}
+    - {place: 3, team: *dw,  wins: 2, losses: 4, class: lost}
+    - {place: 4, team: *pgm, wins: 1, losses: 5, class: lost}
     games:
     - {label: Day 2, blue: *sup, red: *dw,  winner: *sup}
     - {label: Day 2, blue: *kbm, red: *pgm, winner: *kbm}
@@ -80,14 +78,13 @@ stages:
     - {blue: *gmb, red: *fw,  winner: *fw}
     - {blue: *fw,  red: *gmb, winner: *fw}
 - name: Group Stage
-  winners: [*rng, *fw, *kz, *fnc]
   placements:
-  - {place: 1, team: *rng, wins: 7, losses: 3}
-  - {place: 2, team: *fw,  wins: 7, losses: 3}
-  - {place: 3, team: *kz,  wins: 6, losses: 4}
-  - {place: 4, team: *fnc, wins: 4, losses: 6}
-  - {place: 5, team: *tl,  wins: 4, losses: 6}
-  - {place: 6, team: *evs, wins: 2, losses: 8}
+  - {place: 1, team: *rng, wins: 7, losses: 3, class: won}
+  - {place: 2, team: *fw,  wins: 7, losses: 3, class: won}
+  - {place: 3, team: *kz,  wins: 6, losses: 4, class: won}
+  - {place: 4, team: *fnc, wins: 4, losses: 6, class: won}
+  - {place: 5, team: *tl,  wins: 4, losses: 6, class: lost}
+  - {place: 6, team: *evs, wins: 2, losses: 8, class: lost}
   games:
   - {label: Day 1, blue: *fnc, red: *rng, winner: *rng}
   - {label: Day 1, blue: *evs, red: *fw,  winner: *fw}

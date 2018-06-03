@@ -7,8 +7,9 @@ DATADIR = data
 SCRIPTDIR = script
 STATICDIR = static
 
-TOURNAMENTS += msi-2015 msi-2016 msi-2017 msi-2018
 TOURNAMENTS += worlds-2015 worlds-2016 worlds-2017
+TOURNAMENTS += msi-2015 msi-2016 msi-2017 msi-2018
+TOURNAMENTS += lms-2017
 
 TARGETS = $(addprefix $(HTMLDIR)/,$(addsuffix .html,$(TOURNAMENTS)))
 

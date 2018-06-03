@@ -91,10 +91,17 @@ img {
     padding-right: 1ch;
 }
 
-.winner, .won {
+.championship-points td {
+    /* Team */
+    min-width: 6ch;
+    padding-left: 1ch;
+    padding-right: 1ch;
+}
+
+.won {
     background-color: #bfb;
 }
-.loser, .lost {
+.lost {
     background-color: #fbb;
 }
 .tied {
