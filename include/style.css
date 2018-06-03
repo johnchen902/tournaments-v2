@@ -31,7 +31,13 @@ img {
     margin-top: -1.17em
 }
 
-#participants td:nth-child(3) {
+.participants .region, .participants .teamabbr {
+    min-width: 5ch;
+    padding-left: 1ch;
+    padding-right: 1ch;
+}
+
+.participants .teamname {
     text-align: left;
     padding-left: 1em;
     padding-right: 1em;

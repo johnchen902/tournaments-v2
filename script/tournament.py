@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import xml.etree.ElementTree as et
 import io
 import itertools
@@ -10,7 +11,7 @@ def wrap_details(*elements, summary=None):
     return details
 
 def create_teams_table(teams, labels={}):
-    table = et.Element("table", id="participants")
+    table = et.Element("table", {"class": "participants"})
 
     for i, team in enumerate(teams):
         if i in labels:
@@ -19,13 +20,45 @@ def create_teams_table(teams, labels={}):
 
         if i == 0:
             tr = et.SubElement(table, "tr")
-            for text in ["Region", "Team", "Full Team Name"]:
-                et.SubElement(tr, "th").text = text
+            et.SubElement(tr, "th").text = "Region"
+            et.SubElement(tr, "th").text = "ID"
+            et.SubElement(tr, "th").text = "Team"
 
         tr = et.SubElement(table, "tr")
-        for text in [team["region"], team["abbr"], team["name"]]:
-            et.SubElement(tr, "td").text = text
+        et.SubElement(tr, "td", {"class": "region"}).text = team["region"]
+        et.SubElement(tr, "td", {"class": "teamabbr"}).text = team["abbr"]
+        et.SubElement(tr, "td", {"class": "teamname"}).text = team["name"]
 
+    return table
+
+def compute_region_teams(teams):
+    region_teams = OrderedDict()
+    for team in teams:
+        region = team['region']
+        if region in region_teams:
+            region_teams[region].append(team)
+        else:
+            region_teams[region] = [team]
+    return region_teams
+
+def create_region_teams_table(region_teams):
+    table = et.Element("table", {"class": "participants"})
+
+    tr = et.SubElement(table, "tr")
+    et.SubElement(tr, "th").text = "Region"
+    et.SubElement(tr, "th").text = "ID"
+    et.SubElement(tr, "th").text = "Team"
+
+    for region, teams in region_teams.items():
+        for i, team in enumerate(teams):
+            tr = et.SubElement(table, "tr")
+            if i == 0:
+                td = et.SubElement(tr, "td", {"class": "region"})
+                if len(teams) > 1:
+                    td.set("rowspan", str(len(teams)))
+                td.text = region
+            et.SubElement(tr, "td", {"class": "teamabbr"}).text = team["abbr"]
+            et.SubElement(tr, "td", {"class": "teamname"}).text = team["name"]
     return table
 
 def create_group_table(placements, winners):
