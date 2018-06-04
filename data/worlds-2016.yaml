@@ -30,19 +30,19 @@ stages:
     - {place: 3, team: *clg, wins: 3, losses: 3, class: lost}
     - {place: 4, team: *g2,  wins: 1, losses: 5, class: lost}
     games:
-    - {label: Day 1, blue: *g2,  red: *clg, winner: *clg}
-    - {label: Day 1, blue: *rox, red: *anx, winner: *rox}
-    - {label: Day 3, blue: *clg, red: *anx, winner: *anx}
-    - {label: Day 3, blue: *rox, red: *g2,  winner: *rox}
-    - {label: Day 4, blue: *anx, red: *g2,  winner: *anx}
-    - {label: Day 4, blue: *clg, red: *rox, winner: *clg}
-    - {label: Day 5, blue: *g2,  red: *rox, winner: *rox}
-    - {label: Day 5, blue: *anx, red: *clg, winner: *anx}
-    - {label: Day 5, blue: *clg, red: *g2,  winner: *clg}
-    - {label: Day 5, blue: *anx, red: *rox, winner: *anx}
-    - {label: Day 5, blue: *g2,  red: *anx, winner: *g2}
-    - {label: Day 5, blue: *rox, red: *clg, winner: *rox}
-    - {label: Tiebreaker, blue: *rox, red: *anx, winner: *rox}
+    - {label: Day 1, team1: *g2,  team2: *clg, winner: *clg}
+    - {label: Day 1, team1: *rox, team2: *anx, winner: *rox}
+    - {label: Day 3, team1: *clg, team2: *anx, winner: *anx}
+    - {label: Day 3, team1: *rox, team2: *g2,  winner: *rox}
+    - {label: Day 4, team1: *anx, team2: *g2,  winner: *anx}
+    - {label: Day 4, team1: *clg, team2: *rox, winner: *clg}
+    - {label: Day 5, team1: *g2,  team2: *rox, winner: *rox}
+    - {label: Day 5, team1: *anx, team2: *clg, winner: *anx}
+    - {label: Day 5, team1: *clg, team2: *g2,  winner: *clg}
+    - {label: Day 5, team1: *anx, team2: *rox, winner: *anx}
+    - {label: Day 5, team1: *g2,  team2: *anx, winner: *g2}
+    - {label: Day 5, team1: *rox, team2: *clg, winner: *rox}
+    - {label: Tiebreaker, team1: *rox, team2: *anx, winner: *rox}
   - name: Group B
     placements:
     - {place: 1, team: *skt, wins: 5, losses: 1, class: won}
@@ -50,18 +50,18 @@ stages:
     - {place: 3, team: *im,  wins: 2, losses: 4, class: lost}
     - {place: 4, team: *fw,  wins: 2, losses: 4, class: lost}
     games:
-    - {label: Day 2, blue: *skt, red: *c9,  winner: *skt}
-    - {label: Day 2, blue: *fw,  red: *im,  winner: *im}
-    - {label: Day 3, blue: *fw,  red: *c9,  winner: *c9}
-    - {label: Day 3, blue: *im,  red: *skt, winner: *skt}
-    - {label: Day 4, blue: *skt, red: *fw,  winner: *fw}
-    - {label: Day 4, blue: *c9,  red: *im,  winner: *c9}
-    - {label: Day 8, blue: *im,  red: *fw,  winner: *im}
-    - {label: Day 8, blue: *c9,  red: *skt, winner: *skt}
-    - {label: Day 8, blue: *c9,  red: *fw,  winner: *fw}
-    - {label: Day 8, blue: *skt, red: *im,  winner: *skt}
-    - {label: Day 8, blue: *im,  red: *c9,  winner: *c9}
-    - {label: Day 8, blue: *fw,  red: *skt, winner: *skt}
+    - {label: Day 2, team1: *skt, team2: *c9,  winner: *skt}
+    - {label: Day 2, team1: *fw,  team2: *im,  winner: *im}
+    - {label: Day 3, team1: *fw,  team2: *c9,  winner: *c9}
+    - {label: Day 3, team1: *im,  team2: *skt, winner: *skt}
+    - {label: Day 4, team1: *skt, team2: *fw,  winner: *fw}
+    - {label: Day 4, team1: *c9,  team2: *im,  winner: *c9}
+    - {label: Day 8, team1: *im,  team2: *fw,  winner: *im}
+    - {label: Day 8, team1: *c9,  team2: *skt, winner: *skt}
+    - {label: Day 8, team1: *c9,  team2: *fw,  winner: *fw}
+    - {label: Day 8, team1: *skt, team2: *im,  winner: *skt}
+    - {label: Day 8, team1: *im,  team2: *c9,  winner: *c9}
+    - {label: Day 8, team1: *fw,  team2: *skt, winner: *skt}
   - name: Group C
     placements:
     - {place: 1, team: *h2k, wins: 4, losses: 2, class: won}
@@ -69,19 +69,19 @@ stages:
     - {place: 3, team: *ahq, wins: 3, losses: 3, class: lost}
     - {place: 4, team: *itz, wins: 1, losses: 5, class: lost}
     games:
-    - {label: Day 1, blue: *h2k, red: *ahq, winner: *ahq}
-    - {label: Day 1, blue: *itz, red: *edg, winner: *itz}
-    - {label: Day 3, blue: *h2k, red: *itz, winner: *h2k}
-    - {label: Day 3, blue: *edg, red: *ahq, winner: *edg}
-    - {label: Day 4, blue: *ahq, red: *itz, winner: *ahq}
-    - {label: Day 4, blue: *edg, red: *h2k, winner: *edg}
-    - {label: Day 6, blue: *edg, red: *itz, winner: *edg}
-    - {label: Day 6, blue: *ahq, red: *h2k, winner: *h2k}
-    - {label: Day 6, blue: *h2k, red: *edg, winner: *h2k}
-    - {label: Day 6, blue: *itz, red: *ahq, winner: *ahq}
-    - {label: Day 6, blue: *itz, red: *h2k, winner: *h2k}
-    - {label: Day 6, blue: *ahq, red: *edg, winner: *edg}
-    - {label: Tiebreaker, blue: *h2k, red: *edg, winner: *h2k}
+    - {label: Day 1, team1: *h2k, team2: *ahq, winner: *ahq}
+    - {label: Day 1, team1: *itz, team2: *edg, winner: *itz}
+    - {label: Day 3, team1: *h2k, team2: *itz, winner: *h2k}
+    - {label: Day 3, team1: *edg, team2: *ahq, winner: *edg}
+    - {label: Day 4, team1: *ahq, team2: *itz, winner: *ahq}
+    - {label: Day 4, team1: *edg, team2: *h2k, winner: *edg}
+    - {label: Day 6, team1: *edg, team2: *itz, winner: *edg}
+    - {label: Day 6, team1: *ahq, team2: *h2k, winner: *h2k}
+    - {label: Day 6, team1: *h2k, team2: *edg, winner: *h2k}
+    - {label: Day 6, team1: *itz, team2: *ahq, winner: *ahq}
+    - {label: Day 6, team1: *itz, team2: *h2k, winner: *h2k}
+    - {label: Day 6, team1: *ahq, team2: *edg, winner: *edg}
+    - {label: Tiebreaker, team1: *h2k, team2: *edg, winner: *h2k}
   - name: Group D
     placements:
     - {place: 1, team: *ssg, wins: 5, losses: 1, class: won}
@@ -89,18 +89,18 @@ stages:
     - {place: 3, team: *tsm, wins: 3, losses: 3, class: lost}
     - {place: 4, team: *spy, wins: 1, losses: 5, class: lost}
     games:
-    - {label: Day 1, blue: *ssg, red: *spy, winner: *ssg}
-    - {label: Day 1, blue: *tsm, red: *rng, winner: *rng}
-    - {label: Day 2, blue: *tsm, red: *ssg, winner: *tsm}
-    - {label: Day 2, blue: *rng, red: *spy, winner: *rng}
-    - {label: Day 3, blue: *spy, red: *tsm, winner: *tsm}
-    - {label: Day 3, blue: *rng, red: *ssg, winner: *ssg}
-    - {label: Day 7, blue: *ssg, red: *tsm, winner: *ssg}
-    - {label: Day 7, blue: *spy, red: *rng, winner: *spy}
-    - {label: Day 7, blue: *tsm, red: *spy, winner: *tsm}
-    - {label: Day 7, blue: *ssg, red: *rng, winner: *ssg}
-    - {label: Day 7, blue: *spy, red: *ssg, winner: *ssg}
-    - {label: Day 7, blue: *rng, red: *tsm, winner: *rng}
+    - {label: Day 1, team1: *ssg, team2: *spy, winner: *ssg}
+    - {label: Day 1, team1: *tsm, team2: *rng, winner: *rng}
+    - {label: Day 2, team1: *tsm, team2: *ssg, winner: *tsm}
+    - {label: Day 2, team1: *rng, team2: *spy, winner: *rng}
+    - {label: Day 3, team1: *spy, team2: *tsm, winner: *tsm}
+    - {label: Day 3, team1: *rng, team2: *ssg, winner: *ssg}
+    - {label: Day 7, team1: *ssg, team2: *tsm, winner: *ssg}
+    - {label: Day 7, team1: *spy, team2: *rng, winner: *spy}
+    - {label: Day 7, team1: *tsm, team2: *spy, winner: *tsm}
+    - {label: Day 7, team1: *ssg, team2: *rng, winner: *ssg}
+    - {label: Day 7, team1: *spy, team2: *ssg, winner: *ssg}
+    - {label: Day 7, team1: *rng, team2: *tsm, winner: *rng}
 - name: Knockout Stage
   matches:
   - label: Quarterfinal
@@ -110,10 +110,10 @@ stages:
     score2: 1
     winner: *skt
     games:
-    - {blue: *skt, red: *rng, winner: *rng}
-    - {blue: *rng, red: *skt, winner: *skt}
-    - {blue: *skt, red: *rng, winner: *skt}
-    - {blue: *rng, red: *skt, winner: *skt}
+    - {team1: *skt, team2: *rng, winner: *rng}
+    - {team1: *rng, team2: *skt, winner: *skt}
+    - {team1: *skt, team2: *rng, winner: *skt}
+    - {team1: *rng, team2: *skt, winner: *skt}
   - label: Quarterfinal
     team1: *rox
     team2: *edg
@@ -121,10 +121,10 @@ stages:
     score2: 1
     winner: *rox
     games:
-    - {blue: *rox, red: *edg, winner: *rox}
-    - {blue: *edg, red: *rox, winner: *rox}
-    - {blue: *rox, red: *edg, winner: *edg}
-    - {blue: *edg, red: *rox, winner: *rox}
+    - {team1: *rox, team2: *edg, winner: *rox}
+    - {team1: *edg, team2: *rox, winner: *rox}
+    - {team1: *rox, team2: *edg, winner: *edg}
+    - {team1: *edg, team2: *rox, winner: *rox}
   - label: Quarterfinal
     team1: *ssg
     team2: *c9
@@ -132,9 +132,9 @@ stages:
     score2: 0
     winner: *ssg
     games:
-    - {blue: *ssg, red: *c9, winner: *ssg}
-    - {blue: *c9, red: *ssg, winner: *ssg}
-    - {blue: *ssg, red: *c9, winner: *ssg}
+    - {team1: *ssg, team2: *c9, winner: *ssg}
+    - {team1: *c9, team2: *ssg, winner: *ssg}
+    - {team1: *ssg, team2: *c9, winner: *ssg}
   - label: Quarterfinal
     team1: *h2k
     team2: *anx
@@ -142,9 +142,9 @@ stages:
     score2: 0
     winner: *h2k
     games:
-    - {blue: *h2k, red: *anx, winner: *h2k}
-    - {blue: *anx, red: *h2k, winner: *h2k}
-    - {blue: *h2k, red: *anx, winner: *h2k}
+    - {team1: *h2k, team2: *anx, winner: *h2k}
+    - {team1: *anx, team2: *h2k, winner: *h2k}
+    - {team1: *h2k, team2: *anx, winner: *h2k}
   - label: Semifinal
     team1: *skt
     team2: *rox
@@ -152,11 +152,11 @@ stages:
     score2: 2
     winner: *skt
     games:
-    - {blue: *rox, red: *skt, winner: *skt}
-    - {blue: *skt, red: *rox, winner: *rox}
-    - {blue: *rox, red: *skt, winner: *rox}
-    - {blue: *skt, red: *rox, winner: *skt}
-    - {blue: *rox, red: *skt, winner: *skt}
+    - {team1: *rox, team2: *skt, winner: *skt}
+    - {team1: *skt, team2: *rox, winner: *rox}
+    - {team1: *rox, team2: *skt, winner: *rox}
+    - {team1: *skt, team2: *rox, winner: *skt}
+    - {team1: *rox, team2: *skt, winner: *skt}
   - label: Semifinal
     team1: *ssg
     team2: *h2k
@@ -164,9 +164,9 @@ stages:
     score2: 0
     winner: *ssg
     games:
-    - {blue: *ssg, red: *h2k, winner: *ssg}
-    - {blue: *h2k, red: *ssg, winner: *ssg}
-    - {blue: *ssg, red: *h2k, winner: *ssg}
+    - {team1: *ssg, team2: *h2k, winner: *ssg}
+    - {team1: *h2k, team2: *ssg, winner: *ssg}
+    - {team1: *ssg, team2: *h2k, winner: *ssg}
   - label: Final
     team1: *skt
     team2: *ssg
@@ -174,8 +174,8 @@ stages:
     score2: 2
     winner: *skt
     games:
-    - {blue: *ssg, red: *skt, winner: *skt}
-    - {blue: *skt, red: *ssg, winner: *skt}
-    - {blue: *ssg, red: *skt, winner: *ssg}
-    - {blue: *skt, red: *ssg, winner: *ssg}
-    - {blue: *ssg, red: *skt, winner: *skt}
+    - {team1: *ssg, team2: *skt, winner: *skt}
+    - {team1: *skt, team2: *ssg, winner: *skt}
+    - {team1: *ssg, team2: *skt, winner: *ssg}
+    - {team1: *skt, team2: *ssg, winner: *ssg}
+    - {team1: *ssg, team2: *skt, winner: *skt}

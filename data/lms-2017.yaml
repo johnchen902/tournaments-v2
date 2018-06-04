@@ -95,10 +95,10 @@ stages:
     score2: 1
     winner: *jt
     games:
-    - {blue: *m17, red: *jt,  winner: *m17}
-    - {blue: *m17, red: *jt,  winner: *jt}
-    - {blue: *m17, red: *jt,  winner: *jt}
-    - {blue: *jt,  red: *m17, winner: *jt}
+    - {team1: *m17, team2: *jt,  winner: *m17}
+    - {team1: *m17, team2: *jt,  winner: *jt}
+    - {team1: *m17, team2: *jt,  winner: *jt}
+    - {team1: *jt,  team2: *m17, winner: *jt}
   - label: Round 2
     team1: *ahq
     team2: *jt
@@ -106,9 +106,9 @@ stages:
     score2: 0
     winner: *ahq
     games:
-    - {blue: *ahq, red: *jt,  winner: *ahq}
-    - {blue: *jt,  red: *ahq, winner: *ahq}
-    - {blue: *ahq, red: *jt,  winner: *ahq}
+    - {team1: *ahq, team2: *jt,  winner: *ahq}
+    - {team1: *jt,  team2: *ahq, winner: *ahq}
+    - {team1: *ahq, team2: *jt,  winner: *ahq}
   - label: Final
     team1: *fw
     team2: *ahq
@@ -116,10 +116,10 @@ stages:
     score2: 1
     winner: *fw
     games:
-    - {blue: *fw,  red: *ahq, winner: *ahq}
-    - {blue: *fw,  red: *ahq, winner: *fw}
-    - {blue: *ahq, red: *fw,  winner: *fw}
-    - {blue: *fw,  red: *ahq, winner: *fw}
+    - {team1: *fw,  team2: *ahq, winner: *ahq}
+    - {team1: *fw,  team2: *ahq, winner: *fw}
+    - {team1: *ahq, team2: *fw,  winner: *fw}
+    - {team1: *fw,  team2: *ahq, winner: *fw}
 - name: Summer Regular Season
   placements:
   - {place: 1, team: *fw,  wins: 10, losses:  4, gamewins: 22, gamelosses: 11, class: won}
@@ -197,11 +197,11 @@ stages:
     score2: 2
     winner: *ahq
     games:
-    - {blue: *ahq, red: *jt,  winner: *ahq}
-    - {blue: *jt,  red: *ahq, winner: *jt}
-    - {blue: *ahq, red: *jt,  winner: *ahq}
-    - {blue: *jt,  red: *ahq, winner: *jt}
-    - {blue: *ahq, red: *jt,  winner: *ahq}
+    - {team1: *ahq, team2: *jt,  winner: *ahq}
+    - {team1: *jt,  team2: *ahq, winner: *jt}
+    - {team1: *ahq, team2: *jt,  winner: *ahq}
+    - {team1: *jt,  team2: *ahq, winner: *jt}
+    - {team1: *ahq, team2: *jt,  winner: *ahq}
   - label: Round 2
     team1: *rg
     team2: *ahq
@@ -209,10 +209,10 @@ stages:
     score2: 3
     winner: *ahq
     games:
-    - {blue: *rg,  red: *ahq, winner: *ahq}
-    - {blue: *ahq, red: *rg,  winner: *rg}
-    - {blue: *rg,  red: *ahq, winner: *ahq}
-    - {blue: *ahq, red: *rg,  winner: *ahq}
+    - {team1: *rg,  team2: *ahq, winner: *ahq}
+    - {team1: *ahq, team2: *rg,  winner: *rg}
+    - {team1: *rg,  team2: *ahq, winner: *ahq}
+    - {team1: *ahq, team2: *rg,  winner: *ahq}
   - label: Final
     team1: *fw
     team2: *ahq
@@ -220,9 +220,9 @@ stages:
     score2: 0
     winner: *fw
     games:
-    - {blue: *ahq, red: *fw,  winner: *fw}
-    - {blue: *ahq, red: *fw,  winner: *fw}
-    - {blue: *ahq, red: *fw,  winner: *fw}
+    - {team1: *ahq, team2: *fw,  winner: *fw}
+    - {team1: *ahq, team2: *fw,  winner: *fw}
+    - {team1: *ahq, team2: *fw,  winner: *fw}
 - name: Championship Points
   placements:
   - {place: 1, team: *fw,  spring: 90, summer: .inf, class: won}
@@ -241,10 +241,10 @@ stages:
     score2: 3
     winner: *hka
     games:
-    - {blue: *jt,  red: *hka, winner: *hka}
-    - {blue: *hka, red: *jt,  winner: *hka}
-    - {blue: *jt,  red: *hka, winner: *jt}
-    - {blue: *hka, red: *jt,  winner: *hka}
+    - {team1: *jt,  team2: *hka, winner: *hka}
+    - {team1: *hka, team2: *jt,  winner: *hka}
+    - {team1: *jt,  team2: *hka, winner: *jt}
+    - {team1: *hka, team2: *jt,  winner: *hka}
   - label: Semifinal
     team1: *rg
     team2: *m17
@@ -252,11 +252,11 @@ stages:
     score2: 2
     winner: *rg
     games:
-    - {blue: *rg,  red: *m17, winner: *rg}
-    - {blue: *m17, red: *rg,  winner: *m17}
-    - {blue: *rg,  red: *m17, winner: *rg}
-    - {blue: *m17, red: *rg,  winner: *m17}
-    - {blue: *rg,  red: *m17, winner: *rg}
+    - {team1: *rg,  team2: *m17, winner: *rg}
+    - {team1: *m17, team2: *rg,  winner: *m17}
+    - {team1: *rg,  team2: *m17, winner: *rg}
+    - {team1: *m17, team2: *rg,  winner: *m17}
+    - {team1: *rg,  team2: *m17, winner: *rg}
   - label: Final
     team1: *hka
     team2: *rg
@@ -264,6 +264,6 @@ stages:
     score2: 0
     winner: *hka
     games:
-    - {blue: *rg,  red: *hka,  winner: *hka}
-    - {blue: *hka, red: *rg,   winner: *hka}
-    - {blue: *rg,  red: *hka,  winner: *hka}
+    - {team1: *rg,  team2: *hka,  winner: *hka}
+    - {team1: *hka, team2: *rg,   winner: *hka}
+    - {team1: *rg,  team2: *hka,  winner: *hka}

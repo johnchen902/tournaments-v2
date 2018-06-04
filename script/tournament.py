@@ -69,6 +69,7 @@ def create_region_teams_table(region_teams):
 def create_group_table(placements):
     ALL_KEYS = OrderedDict([
         ('wins', "W"),
+        ('ties', "T"),
         ('losses', "L"),
         ('gamewins', "GW"),
         ('gamelosses', "GL"),
@@ -99,19 +100,7 @@ def create_group_table(placements):
             et.SubElement(tr, "td").text = str(row[key])
     return table
 
-def compute_crosstable_from_games(teams, games):
-    crosstable = [[0] * len(teams) for _ in teams]
-    for game in games:
-        blue, red = game['blue'], game['red']
-        i = teams.index(blue)
-        j = teams.index(red)
-        if blue == game['winner']:
-            crosstable[i][j] += 1
-        elif red == game['winner']:
-            crosstable[j][i] += 1
-    return crosstable
-
-def compute_match_crosstable_from_matches(teams, matches):
+def compute_match_crosstable(teams, matches):
     crosstable = [[0] * len(teams) for _ in teams]
     for match in matches:
         team1, team2 = match['team1'], match['team2']
@@ -123,7 +112,7 @@ def compute_match_crosstable_from_matches(teams, matches):
             crosstable[j][i] += 1
     return crosstable
 
-def compute_game_crosstable_from_matches(teams, matches):
+def compute_game_crosstable(teams, matches):
     crosstable = [[0] * len(teams) for _ in teams]
     for match in matches:
         team1, team2 = match['team1'], match['team2']
@@ -155,33 +144,45 @@ def create_crosstable(teams, crosstable):
             et.SubElement(tr, "td", {"class": clazz}).text = str(wins)
     return table
 
-def create_matchbox_tr(abbr1, won1, score1, abbr2, won2, score2):
+def create_matchbox_tr(abbr1, score1, class1, abbr2, score2, class2):
     tr = et.Element("tr")
     et.SubElement(tr, "td").text = abbr1
-    et.SubElement(tr, "td").text = score1
-    et.SubElement(tr, "td").text = score2
+    et.SubElement(tr, "td").text = str(score1)
+    et.SubElement(tr, "td").text = str(score2)
     et.SubElement(tr, "td").text = abbr2
-    if won1 or won2:
-        tr[0].set("class", "won" if won1 else "lost")
-        tr[3].set("class", "won" if won2 else "lost")
+    if class1:
+        tr[0].set("class", class1)
+    if class2:
+        tr[3].set("class", class2)
     return tr
 
-def create_games_table(games):
-    table = et.Element("table", {"class": "matchbox"})
+def create_match_tr(match):
+    team1, team2, winner = match['team1'], match['team2'], match['winner']
+    if team1 == team2:
+        raise ValueError('team 1 and team 2 must be different')
+    abbr1, abbr2 = team1['abbr'], team2['abbr']
 
-    lastlabel = None
-    for game in games:
-        label = game.get('label')
-        if label is not None and (lastlabel is None or lastlabel != label):
-            tr = et.SubElement(table, "tr")
-            et.SubElement(tr, "th", colspan="4").text = label
-            lastlabel = label
-        blue, red, winner = game['blue'], game['red'], game['winner']
-        tr = create_matchbox_tr(
-                blue['abbr'], blue == winner, str(int(blue == winner)),
-                red ['abbr'], red  == winner, str(int(red  == winner)))
-        table.append(tr)
-    return table
+    if winner == team1:
+        score1, score2, class1, class2 = 1, 0, 'won', 'lost'
+    elif winner == team2:
+        score1, score2, class1, class2 = 0, 1, 'lost', 'won'
+    elif winner == 'tied':
+        score1, score2, class1, class2 = 1, 1, 'tied', 'tied'
+    elif winner is None:
+        score1, score2, class1, class2 = 0, 0, None, None
+    else:
+        raise ValueError("winner must be either teams, 'tied' or None")
+
+    if 'score1' in match:
+        score1 = match['score1']
+    if 'score2' in match:
+        score2 = match['score2']
+    if 'class1' in match:
+        class1 = match['class1']
+    if 'class2' in match:
+        class2 = match['class2']
+
+    return create_matchbox_tr(abbr1, score1, class1, abbr2, score2, class2)
 
 def create_matches_table(matches):
     table = et.Element("table", {"class": "matchbox"})
@@ -193,10 +194,8 @@ def create_matches_table(matches):
             tr = et.SubElement(table, "tr")
             et.SubElement(tr, "th", colspan="4").text = label
             lastlabel = label
-        team1, team2, winner = match['team1'], match['team2'], match['winner']
-        tr = create_matchbox_tr(
-                team1['abbr'], team1 == winner, str(match['score1']),
-                team2['abbr'], team2 == winner, str(match['score2']))
+
+        tr = create_match_tr(match)
         table.append(tr)
     return table
 
@@ -210,12 +209,12 @@ def _extend_groups(section, groups):
         subsection.append(create_group_table(group["placements"]))
 
         teams = [row['team'] for row in group['placements']]
-        data = compute_crosstable_from_games(teams, group['games'])
+        data = compute_match_crosstable(teams, group['games'])
         crosstable = create_crosstable(teams, data)
         details = wrap_details(crosstable, summary="Crosstable")
         subsection.append(details)
 
-        games_table = create_games_table(group['games'])
+        games_table = create_matches_table(group['games'])
         details = wrap_details(games_table, summary="Games")
         subsection.append(details)
 
@@ -223,14 +222,14 @@ def _extend_single_group(section, group):
     section.append(create_group_table(group['placements']))
 
     teams = [row['team'] for row in group['placements']]
-    data = compute_crosstable_from_games(teams, group['games'])
+    data = compute_match_crosstable(teams, group['games'])
     crosstable = create_crosstable(teams, data)
     details = wrap_details(crosstable, summary="Crosstable")
     section.append(details)
 
     groupsdiv = et.Element("div", {"class": "groups"})
     for _, games in itertools.groupby(group['games'], lambda g: g['label']):
-        groupsdiv.append(create_games_table(games))
+        groupsdiv.append(create_matches_table(games))
     details = wrap_details(groupsdiv, summary="Games")
     section.append(details)
 
@@ -238,12 +237,12 @@ def _extend_single_bo3_group(section, group):
     section.append(create_group_table(group['placements']))
     teams = [row['team'] for row in group['placements']]
 
-    data = compute_match_crosstable_from_matches(teams, group['matches'])
+    data = compute_match_crosstable(teams, group['matches'])
     crosstable = create_crosstable(teams, data)
     details = wrap_details(crosstable, summary="Match Crosstable")
     section.append(details)
 
-    data = compute_game_crosstable_from_matches(teams, group['matches'])
+    data = compute_game_crosstable(teams, group['matches'])
     crosstable = create_crosstable(teams, data)
     details = wrap_details(crosstable, summary="Game Crosstable")
     section.append(details)
@@ -278,10 +277,7 @@ def create_bo3_group_stage_section(stage):
 
 def create_matchbox(match):
     table = et.Element("table", {"class": "matchbox"})
-    team1, team2, winner = match['team1'], match['team2'], match['winner']
-    table.append(create_matchbox_tr(
-            team1['abbr'], team1 == winner, str(match['score1']),
-            team2['abbr'], team2 == winner, str(match['score2'])))
+    table.append(create_match_tr(match))
     return table
 
 def _append_match(section, match):
@@ -290,7 +286,7 @@ def _append_match(section, match):
 
     section.append(create_matchbox(match))
 
-    games_table = create_games_table(match['games'])
+    games_table = create_matches_table(match['games'])
     details = wrap_details(games_table, summary="Games")
     section.append(details)
 
