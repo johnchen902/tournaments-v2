@@ -3,6 +3,7 @@ import xml.etree.ElementTree as et
 import io
 import itertools
 import math
+import urllib.parse
 
 def wrap_details(*elements, summary=None):
     details = et.Element("details")
@@ -379,7 +380,8 @@ def create_championship_points_section(stage):
 def svg_to_image(svg, **attr):
     string_io = io.StringIO()
     et.ElementTree(svg).write(string_io, encoding="unicode")
-    src = 'data:image/svg+xml,' + string_io.getvalue()
+    data = string_io.getvalue()
+    src = 'data:image/svg+xml,' + urllib.parse.quote(data, safe='')
     return et.Element("img", src=src, **attr)
 
 class HTMLGenerator:
