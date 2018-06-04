@@ -9,7 +9,7 @@ STATICDIR = static
 
 TOURNAMENTS += worlds-2015 worlds-2016 worlds-2017
 TOURNAMENTS += msi-2015 msi-2016 msi-2017 msi-2018
-TOURNAMENTS += lms-2016 lms-2017 lms-2018
+TOURNAMENTS += lms-2015 lms-2016 lms-2017 lms-2018
 
 TARGETS = $(addprefix $(HTMLDIR)/,$(addsuffix .html,$(TOURNAMENTS)))
 
