@@ -3,7 +3,7 @@ import xml.etree.ElementTree as et
 import tournament
 import playoffs_svg
 
-class LMS2017Generator(tournament.HTMLGenerator):
+class LMS2016Generator(tournament.HTMLGenerator):
     def generate_participants(self, data):
         spring_teams = data['spring_teams']
         spring_teams_table = tournament.create_teams_table(spring_teams)
@@ -20,7 +20,7 @@ class LMS2017Generator(tournament.HTMLGenerator):
         return div
     def generate_stage(self, i, stage):
         if i in (0, 2):
-            return tournament.create_bo3_group_stage_section(stage)
+            return tournament.create_bo2_group_stage_section(stage)
         if i in (1, 3):
             svg = playoffs_svg.create_gauntlet_svg(stage['matches'])
             image = tournament.svg_to_image(svg, alt="")
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     import yaml
 
     data = yaml.safe_load(sys.stdin)
-    html = LMS2017Generator().generate(data)
+    html = LMS2016Generator().generate(data)
 
     out = sys.stdout.buffer
     out.write(b"<!DOCTYPE html>\n")

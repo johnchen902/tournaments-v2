@@ -240,6 +240,15 @@ def _extend_single_group(section, group):
 
     _extend_matches(section, group['games'], True, "Games")
 
+def _extend_single_bo2_group(section, group):
+    section.append(create_group_table(group['placements']))
+
+    teams = [row['team'] for row in group['placements']]
+    data = compute_game_crosstable(teams, group['matches'])
+    _extend_crosstable(section, teams, data, "Crosstable")
+
+    _extend_matches(section, group['matches'], True, "Matches")
+
 def _extend_single_bo3_group(section, group):
     section.append(create_group_table(group['placements']))
 
@@ -260,6 +269,17 @@ def create_group_stage_section(stage):
         _extend_groups(section, stage['groups'])
     else:
         _extend_single_group(section, stage)
+
+    return section
+
+def create_bo2_group_stage_section(stage):
+    section = et.Element("section")
+    et.SubElement(section, "h2").text = stage['name']
+
+    if 'groups' in stage:
+        _extend_bo2_groups(section, stage['groups'])
+    else:
+        _extend_single_bo2_group(section, stage)
 
     return section
 

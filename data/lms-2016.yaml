@@ -1,0 +1,266 @@
+abbr: LMS 2016
+name: League of Legends Master Series 2016
+spring_teams:
+- &ahq {abbr: AHQ, name: ahq e-Sports Club}
+- &cge {abbr: CGE, name: Cougar E-Sport}
+- &fw  {abbr: FW,  name: Flash Wolves}
+- &hke {abbr: HKE, name: Hong Kong Esports}
+- &m17 {abbr: M17, name: Machi E-Sports}
+- &mse {abbr: MSE, name: Midnight Sun Esports}
+- &tpa {abbr: TPA, name: Taipei Assassins}
+- &xg  {abbr: XG,  name: eXtreme Gamers}
+summer_teams:
+- *ahq
+- *fw
+- *hke
+- &jt  {abbr: JT, name: J Team}
+- *m17
+- *mse
+- &tm  {abbr: TM, name: Team Mist}
+- *xg
+stages:
+- name: Spring Regular Season
+  placements:
+  - {place: 1, team: *ahq, wins: 11, ties: 3, losses:  0, points: 36, class: won}
+  - {place: 2, team: *fw,  wins:  9, ties: 2, losses:  3, points: 29, class: won}
+  - {place: 3, team: *tpa, wins:  7, ties: 4, losses:  3, points: 25, class: won}
+  - {place: 4, team: *m17, wins:  5, ties: 5, losses:  4, points: 20, class: won}
+  - {place: 5, team: *hke, wins:  4, ties: 8, losses:  2, points: 20}
+  - {place: 6, team: *mse, wins:  2, ties: 5, losses:  7, points: 11}
+  - {place: 7, team: *xg,  wins:  2, ties: 4, losses:  8, points: 10, class: lost}
+  - {place: 8, team: *cge, wins:  0, ties: 1, losses: 13, points:  1, class: lost}
+  matches:
+  - {label: Week 1, team1: *fw, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 1, team1: *hke, team2: *cge, score1: 2, score2: 0, winner: *hke}
+  - {label: Week 1, team1: *mse, team2: *hke, score1: 0, score2: 2, winner: *hke}
+  - {label: Week 1, team1: *m17, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 1, team1: *xg, team2: *mse, score1: 1, score2: 1, winner: tied}
+  - {label: Week 1, team1: *tpa, team2: *m17, score1: 2, score2: 0, winner: *tpa}
+  - {label: Week 2, team1: *m17, team2: *mse, score1: 2, score2: 0, winner: *m17}
+  - {label: Week 2, team1: *ahq, team2: *hke, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 2, team1: *cge, team2: *xg, score1: 0, score2: 2, winner: *xg}
+  - {label: Week 2, team1: *tpa, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 2, team1: *tpa, team2: *cge, score1: 2, score2: 0, winner: *tpa}
+  - {label: Week 2, team1: *fw, team2: *xg, score1: 0, score2: 2, winner: *xg}
+  - {label: Week 3, team1: *xg, team2: *m17, score1: 0, score2: 2, winner: *m17}
+  - {label: Week 3, team1: *mse, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 3, team1: *fw, team2: *cge, score1: 2, score2: 0, winner: *fw}
+  - {label: Week 3, team1: *m17, team2: *hke, score1: 1, score2: 1, winner: tied}
+  - {label: Week 3, team1: *cge, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 3, team1: *hke, team2: *tpa, score1: 1, score2: 1, winner: tied}
+  - {label: Week 4, team1: *mse, team2: *tpa, score1: 1, score2: 1, winner: tied}
+  - {label: Week 4, team1: *cge, team2: *m17, score1: 0, score2: 2, winner: *m17}
+  - {label: Week 4, team1: *tpa, team2: *xg, score1: 2, score2: 0, winner: *tpa}
+  - {label: Week 4, team1: *ahq, team2: *mse, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 4, team1: *xg, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 4, team1: *hke, team2: *fw, score1: 1, score2: 1, winner: tied}
+  - {label: Week 5, team1: *hke, team2: *xg, score1: 1, score2: 1, winner: tied}
+  - {label: Week 5, team1: *fw, team2: *m17, score1: 2, score2: 0, winner: *fw}
+  - {label: Week 5, team1: *cge, team2: *mse, score1: 0, score2: 2, winner: *mse}
+  - {label: Week 5, team1: *ahq, team2: *tpa, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 6, team1: *hke, team2: *ahq, score1: 1, score2: 1, winner: tied}
+  - {label: Week 6, team1: *cge, team2: *tpa, score1: 0, score2: 2, winner: *tpa}
+  - {label: Week 6, team1: *tpa, team2: *mse, score1: 2, score2: 0, winner: *tpa}
+  - {label: Week 6, team1: *ahq, team2: *xg, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 6, team1: *fw, team2: *mse, score1: 2, score2: 0, winner: *fw}
+  - {label: Week 6, team1: *m17, team2: *xg, score1: 2, score2: 0, winner: *m17}
+  - {label: Week 7, team1: *mse, team2: *m17, score1: 1, score2: 1, winner: tied}
+  - {label: Week 7, team1: *xg, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 7, team1: *cge, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 7, team1: *hke, team2: *m17, score1: 1, score2: 1, winner: tied}
+  - {label: Week 7, team1: *ahq, team2: *cge, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 7, team1: *tpa, team2: *hke, score1: 1, score2: 1, winner: tied}
+  - {label: Week 8, team1: *m17, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 8, team1: *cge, team2: *hke, score1: 0, score2: 2, winner: *hke}
+  - {label: Week 8, team1: *xg, team2: *tpa, score1: 0, score2: 2, winner: *tpa}
+  - {label: Week 8, team1: *mse, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 8, team1: *fw, team2: *hke, score1: 2, score2: 0, winner: *fw}
+  - {label: Week 8, team1: *m17, team2: *cge, score1: 2, score2: 0, winner: *m17}
+  - {label: Week 8, team1: *mse, team2: *xg, score1: 1, score2: 1, winner: tied}
+  - {label: Week 8, team1: *tpa, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 9, team1: *xg, team2: *cge, score1: 1, score2: 1, winner: tied}
+  - {label: Week 9, team1: *hke, team2: *mse, score1: 1, score2: 1, winner: tied}
+  - {label: Week 9, team1: *ahq, team2: *m17, score1: 1, score2: 1, winner: tied}
+  - {label: Week 9, team1: *fw, team2: *tpa, score1: 0, score2: 2, winner: *tpa}
+  - {label: Week 9, team1: *xg, team2: *hke, score1: 0, score2: 2, winner: *hke}
+  - {label: Week 9, team1: *mse, team2: *cge, score1: 2, score2: 0, winner: *mse}
+  - {label: Week 9, team1: *m17, team2: *tpa, score1: 1, score2: 1, winner: tied}
+  - {label: Week 9, team1: *ahq, team2: *fw, score1: 1, score2: 1, winner: tied}
+  - {label: Tiebreaker, team1: *hke, team2: *m17, score1: 0, score2: 1, winner: *m17}
+- name: Spring Playoffs
+  matches:
+  - label: Round 1
+    team1: *tpa
+    team2: *m17
+    score1: 2
+    score2: 3
+    winner: *m17
+    games:
+    - {team1: *m17, team2: *tpa, winner: *tpa}
+    - {team1: *m17, team2: *tpa, winner: *m17}
+    - {team1: *tpa, team2: *m17, winner: *tpa}
+    - {team1: *m17, team2: *tpa, winner: *m17}
+    - {team1: *tpa, team2: *m17, winner: *m17}
+  - label: Round 2
+    team1: *fw
+    team2: *m17
+    score1: 3
+    score2: 0
+    winner: *fw
+    games:
+    - {team1: *fw,  team2: *m17, winner: *fw}
+    - {team1: *m17, team2: *fw,  winner: *fw}
+    - {team1: *fw,  team2: *m17, winner: *fw}
+  - label: Final
+    team1: *ahq
+    team2: *fw
+    score1: 0
+    score2: 3
+    winner: *fw
+    games:
+    - {team1: *ahq, team2: *fw,  winner: *fw}
+    - {team1: *ahq, team2: *fw,  winner: *fw}
+    - {team1: *ahq, team2: *fw,  winner: *fw}
+- name: Summer Regular Season
+  placements:
+  - {place: 1, team: *jt,  wins: 10, ties: 4, losses:  0, points: 34, class: won}
+  - {place: 2, team: *fw,  wins: 10, ties: 3, losses:  1, points: 33, class: won}
+  - {place: 3, team: *ahq, wins:  9, ties: 3, losses:  2, points: 30, class: won}
+  - {place: 4, team: *hke, wins:  5, ties: 5, losses:  4, points: 20, class: won}
+  - {place: 5, team: *mse, wins:  3, ties: 5, losses:  6, points: 14}
+  - {place: 6, team: *m17, wins:  2, ties: 5, losses:  7, points: 11}
+  - {place: 7, team: *xg,  wins:  2, ties: 2, losses: 10, points:  8, class: lost}
+  - {place: 8, team: *tm,  wins:  0, ties: 3, losses: 11, points:  3, class: lost}
+  matches:
+  - {label: Week 1, team1: *jt, team2: *m17, score1: 1, score2: 1, winner: tied}
+  - {label: Week 1, team1: *mse, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 1, team1: *jt, team2: *xg, score1: 2, score2: 0, winner: *jt}
+  - {label: Week 1, team1: *m17, team2: *hke, score1: 0, score2: 2, winner: *hke}
+  - {label: Week 1, team1: *hke, team2: *xg, score1: 2, score2: 0, winner: *hke}
+  - {label: Week 1, team1: *tm, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 2, team1: *mse, team2: *tm, score1: 2, score2: 0, winner: *mse}
+  - {label: Week 2, team1: *hke, team2: *jt, score1: 0, score2: 2, winner: *jt}
+  - {label: Week 2, team1: *ahq, team2: *mse, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 2, team1: *fw, team2: *tm, score1: 2, score2: 0, winner: *fw}
+  - {label: Week 2, team1: *xg, team2: *m17, score1: 0, score2: 2, winner: *m17}
+  - {label: Week 2, team1: *fw, team2: *ahq, score1: 2, score2: 0, winner: *fw}
+  - {label: Week 3, team1: *tm, team2: *m17, score1: 0, score2: 2, winner: *m17}
+  - {label: Week 3, team1: *xg, team2: *mse, score1: 0, score2: 2, winner: *mse}
+  - {label: Week 3, team1: *jt, team2: *tm, score1: 2, score2: 0, winner: *jt}
+  - {label: Week 3, team1: *fw, team2: *xg, score1: 2, score2: 0, winner: *fw}
+  - {label: Week 3, team1: *m17, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 3, team1: *hke, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 4, team1: *ahq, team2: *jt, score1: 0, score2: 2, winner: *jt}
+  - {label: Week 4, team1: *mse, team2: *hke, score1: 1, score2: 1, winner: tied}
+  - {label: Week 4, team1: *tm, team2: *xg, score1: 0, score2: 2, winner: *xg}
+  - {label: Week 4, team1: *ahq, team2: *hke, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 5, team1: *mse, team2: *jt, score1: 0, score2: 2, winner: *jt}
+  - {label: Week 5, team1: *fw, team2: *m17, score1: 2, score2: 0, winner: *fw}
+  - {label: Week 5, team1: *xg, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 5, team1: *hke, team2: *tm, score1: 2, score2: 0, winner: *hke}
+  - {label: Week 5, team1: *jt, team2: *fw, score1: 2, score2: 0, winner: *jt}
+  - {label: Week 5, team1: *m17, team2: *mse, score1: 1, score2: 1, winner: tied}
+  - {label: Week 5, team1: *hke, team2: *ahq, score1: 0, score2: 2, winner: *ahq}
+  - {label: Week 5, team1: *tm, team2: *mse, score1: 0, score2: 2, winner: *mse}
+  - {label: Week 5, team1: *m17, team2: *xg, score1: 1, score2: 1, winner: tied}
+  - {label: Week 5, team1: *fw, team2: *jt, score1: 1, score2: 1, winner: tied}
+  - {label: Week 6, team1: *m17, team2: *jt, score1: 0, score2: 2, winner: *jt}
+  - {label: Week 6, team1: *fw, team2: *mse, score1: 2, score2: 0, winner: *fw}
+  - {label: Week 6, team1: *xg, team2: *jt, score1: 0, score2: 2, winner: *jt}
+  - {label: Week 6, team1: *ahq, team2: *tm, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 6, team1: *fw, team2: *hke, score1: 1, score2: 1, winner: tied}
+  - {label: Week 6, team1: *mse, team2: *m17, score1: 1, score2: 1, winner: tied}
+  - {label: Week 6, team1: *tm, team2: *hke, score1: 1, score2: 1, winner: tied}
+  - {label: Week 6, team1: *ahq, team2: *xg, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 7, team1: *mse, team2: *ahq, score1: 1, score2: 1, winner: tied}
+  - {label: Week 7, team1: *tm, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 7, team1: *tm, team2: *jt, score1: 0, score2: 2, winner: *jt}
+  - {label: Week 7, team1: *hke, team2: *m17, score1: 2, score2: 0, winner: *hke}
+  - {label: Week 7, team1: *xg, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 7, team1: *xg, team2: *hke, score1: 0, score2: 2, winner: *hke}
+  - {label: Week 7, team1: *jt, team2: *mse, score1: 2, score2: 0, winner: *jt}
+  - {label: Week 7, team1: *ahq, team2: *m17, score1: 2, score2: 0, winner: *ahq}
+  - {label: Week 8, team1: *mse, team2: *xg, score1: 0, score2: 2, winner: *xg}
+  - {label: Week 8, team1: *jt, team2: *ahq, score1: 1, score2: 1, winner: tied}
+  - {label: Week 8, team1: *m17, team2: *tm, score1: 1, score2: 1, winner: tied}
+  - {label: Week 8, team1: *hke, team2: *mse, score1: 1, score2: 1, winner: tied}
+  - {label: Week 8, team1: *ahq, team2: *fw, score1: 1, score2: 1, winner: tied}
+  - {label: Week 8, team1: *xg, team2: *tm, score1: 1, score2: 1, winner: tied}
+  - {label: Week 8, team1: *m17, team2: *fw, score1: 0, score2: 2, winner: *fw}
+  - {label: Week 8, team1: *jt, team2: *hke, score1: 1, score2: 1, winner: tied}
+- name: Summer Playoffs
+  matches:
+  - label: Round 1
+    team1: *ahq
+    team2: *hke
+    score1: 3
+    score2: 0
+    winner: *ahq
+    games:
+    - {team1: *ahq, team2: *hke, winner: *ahq}
+    - {team1: *hke, team2: *ahq, winner: *ahq}
+    - {team1: *ahq, team2: *hke, winner: *ahq}
+  - label: Round 2
+    team1: *fw
+    team2: *ahq
+    score1: 3
+    score2: 2
+    winner: *fw
+    games:
+    - {team1: *fw,  team2: *ahq, winner: *ahq}
+    - {team1: *ahq, team2: *fw,  winner: *ahq}
+    - {team1: *fw,  team2: *ahq, winner: *fw}
+    - {team1: *ahq, team2: *fw,  winner: *fw}
+    - {team1: *fw,  team2: *ahq, winner: *fw}
+  - label: Final
+    team1: *jt
+    team2: *fw
+    score1: 0
+    score2: 3
+    winner: *fw
+    games:
+    - {team1: *jt, team2: *fw, winner: *fw}
+    - {team1: *fw, team2: *jt, winner: *fw}
+    - {team1: *jt, team2: *fw, winner: *fw}
+- name: Championship Points
+  placements:
+  - {place: 1, team: *fw,  spring: 90, summer: .inf, class: won}
+  - {place: 2, team: *ahq, spring: 70, summer: 70}
+  - {place: 3, team: *jt,  spring: 30, summer: 90}
+  - {place: 4, team: *m17, spring: 50, summer: 20}
+  - {place: 5, team: *hke, spring: 10, summer: 40}
+  - {place: 6, team: *mse, spring: 10, summer: 20, class: lost}
+- name: Regional Finals
+  matches:
+  - label: Semifinal
+    team1: *ahq
+    team2: *hke
+    score1: 3
+    score2: 0
+    winner: *ahq
+    games:
+    - {team1: *ahq, team2: *hke, winner: *ahq}
+    - {team1: *hke, team2: *ahq, winner: *ahq}
+    - {team1: *ahq, team2: *hke, winner: *ahq}
+  - label: Semifinal
+    team1: *jt
+    team2: *m17
+    score1: 2
+    score2: 3
+    winner: *m17
+    games:
+    - {team1: *jt,  team2: *m17, winner: *jt}
+    - {team1: *m17, team2: *jt,  winner: *m17}
+    - {team1: *jt,  team2: *m17, winner: *jt}
+    - {team1: *m17, team2: *jt,  winner: *m17}
+    - {team1: *jt,  team2: *m17, winner: *m17}
+  - label: Final
+    team1: *ahq
+    team2: *m17
+    score1: 3
+    score2: 0
+    winner: *ahq
+    games:
+    - {team1: *ahq, team2: *m17, winner: *ahq}
+    - {team1: *m17, team2: *ahq, winner: *ahq}
+    - {team1: *ahq, team2: *m17, winner: *ahq}
