@@ -199,6 +199,23 @@ def create_matches_table(matches):
         table.append(tr)
     return table
 
+def _extend_crosstable(section, teams, data, summary=None):
+    crosstable = create_crosstable(teams, data)
+    if summary is not None:
+        crosstable = wrap_details(crosstable, summary=summary)
+    section.append(crosstable)
+
+def _extend_matches(section, matches, split_labels, summary=None):
+    if split_labels:
+        element = et.Element("div", {"class": "groups"})
+        for _, part in itertools.groupby(matches, lambda g: g['label']):
+            element.append(create_matches_table(part))
+    else:
+        element = create_matches_table(matches)
+    if summary is not None:
+        element = wrap_details(element, summary=summary)
+    section.append(element)
+
 def _extend_groups(section, groups):
     groupsdiv = et.SubElement(section, "div", {"class": "groups collapse-h3"})
 
@@ -210,48 +227,30 @@ def _extend_groups(section, groups):
 
         teams = [row['team'] for row in group['placements']]
         data = compute_match_crosstable(teams, group['games'])
-        crosstable = create_crosstable(teams, data)
-        details = wrap_details(crosstable, summary="Crosstable")
-        subsection.append(details)
+        _extend_crosstable(subsection, teams, data, "Crosstable")
 
-        games_table = create_matches_table(group['games'])
-        details = wrap_details(games_table, summary="Games")
-        subsection.append(details)
+        _extend_matches(subsection, group['games'], False, "Games")
 
 def _extend_single_group(section, group):
     section.append(create_group_table(group['placements']))
 
     teams = [row['team'] for row in group['placements']]
     data = compute_match_crosstable(teams, group['games'])
-    crosstable = create_crosstable(teams, data)
-    details = wrap_details(crosstable, summary="Crosstable")
-    section.append(details)
+    _extend_crosstable(section, teams, data, "Crosstable")
 
-    groupsdiv = et.Element("div", {"class": "groups"})
-    for _, games in itertools.groupby(group['games'], lambda g: g['label']):
-        groupsdiv.append(create_matches_table(games))
-    details = wrap_details(groupsdiv, summary="Games")
-    section.append(details)
+    _extend_matches(section, group['games'], True, "Games")
 
 def _extend_single_bo3_group(section, group):
     section.append(create_group_table(group['placements']))
-    teams = [row['team'] for row in group['placements']]
 
+    teams = [row['team'] for row in group['placements']]
     data = compute_match_crosstable(teams, group['matches'])
-    crosstable = create_crosstable(teams, data)
-    details = wrap_details(crosstable, summary="Match Crosstable")
-    section.append(details)
+    _extend_crosstable(section, teams, data, "Match Crosstable")
 
     data = compute_game_crosstable(teams, group['matches'])
-    crosstable = create_crosstable(teams, data)
-    details = wrap_details(crosstable, summary="Game Crosstable")
-    section.append(details)
+    _extend_crosstable(section, teams, data, "Game Crosstable")
 
-    groupsdiv = et.Element("div", {"class": "groups"})
-    for _, games in itertools.groupby(group['matches'], lambda g: g['label']):
-        groupsdiv.append(create_matches_table(games))
-    details = wrap_details(groupsdiv, summary="Matches")
-    section.append(details)
+    _extend_matches(section, group['matches'], True, "Matches")
 
 def create_group_stage_section(stage):
     section = et.Element("section")
