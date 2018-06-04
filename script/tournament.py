@@ -381,7 +381,8 @@ def svg_to_image(svg, **attr):
     string_io = io.StringIO()
     et.ElementTree(svg).write(string_io, encoding="unicode")
     data = string_io.getvalue()
-    src = 'data:image/svg+xml,' + urllib.parse.quote(data, safe='')
+    SAFE = ";/?:@&=+$,!~*'()"
+    src = 'data:image/svg+xml,' + urllib.parse.quote(data, safe=SAFE)
     return et.Element("img", src=src, **attr)
 
 class HTMLGenerator:
