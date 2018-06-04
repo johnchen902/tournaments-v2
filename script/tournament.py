@@ -67,36 +67,36 @@ def create_region_teams_table(region_teams):
     return table
 
 def create_group_table(placements):
+    ALL_KEYS = OrderedDict([
+        ('wins', "W"),
+        ('losses', "L"),
+        ('gamewins', "GW"),
+        ('gamelosses', "GL"),
+        ('points', "P"),
+    ])
+
+    keys = OrderedDict((k, v) for k, v in ALL_KEYS.items()
+                              if k in placements[0])
+
     table = et.Element("table", {"class": "grouptable"})
 
     tr = et.SubElement(table, "tr")
-    for text in ["Place", "Team", "W", "L"]:
+    et.SubElement(tr, "th").text = "Place"
+    et.SubElement(tr, "th").text = "Team"
+    for text in keys.values():
         et.SubElement(tr, "th").text = text
 
     for row in placements:
         tr = et.SubElement(table, "tr")
-        for text in [row['place'], row['team']['abbr'],
-                     row['wins'], row['losses']]:
-            et.SubElement(tr, "td").text = str(text)
+        et.SubElement(tr, "td").text = str(row['place'])
+
+        teamtd = et.SubElement(tr, "td")
+        teamtd.text = row['team']['abbr']
         if 'class' in row:
-            tr[1].set("class", row['class'])
-    return table
+            teamtd.set("class", row['class'])
 
-def create_bo3_group_table(placements):
-    table = et.Element("table", {"class": "grouptable"})
-
-    tr = et.SubElement(table, "tr")
-    for text in ["Place", "Team", "W", "L", "GW", "GL"]:
-        et.SubElement(tr, "th").text = text
-
-    for row in placements:
-        tr = et.SubElement(table, "tr")
-        for text in [row['place'], row['team']['abbr'],
-                     row['wins'], row['losses'],
-                     row['gamewins'], row['gamelosses']]:
-            et.SubElement(tr, "td").text = str(text)
-        if 'class' in row:
-            tr[1].set("class", row['class'])
+        for key in keys:
+            et.SubElement(tr, "td").text = str(row[key])
     return table
 
 def compute_crosstable_from_games(teams, games):
@@ -235,7 +235,7 @@ def _extend_single_group(section, group):
     section.append(details)
 
 def _extend_single_bo3_group(section, group):
-    section.append(create_bo3_group_table(group['placements']))
+    section.append(create_group_table(group['placements']))
     teams = [row['team'] for row in group['placements']]
 
     data = compute_match_crosstable_from_matches(teams, group['matches'])
